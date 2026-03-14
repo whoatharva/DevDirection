@@ -4,7 +4,7 @@ This guide covers deploying the DevDirection project to reliable cloud platforms
 
 ## Project Architecture (Deployment Specs)
 * **Framework**: FastAPI (Python 3.10+) 
-* **Entry Point**: `main:app`
+* **Entry Point**: `app.main:app`
 * **Static Assets**: All frontend HTML/JS/CSS served via FastAPI `StaticFiles` from `/static`
 * **Required Secrets**: `GOOGLE_API_KEY` (or `GEMINI_API_KEY`)
 
@@ -51,7 +51,7 @@ Render is a robust alternative for Python applications offering free-tier Web Se
    * **Root Directory**: *(Leave blank)*
    * **Runtime**: `Python 3`
    * **Build Command**: `pip install -r requirements.txt`
-   * **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+   * **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
 4. **Environment Variables**:
    * Scroll down to **Advanced** > **Add Environment Variable**.
    * Key: `GOOGLE_API_KEY` | Value: *Your secret key*
