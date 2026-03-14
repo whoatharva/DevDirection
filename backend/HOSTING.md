@@ -25,9 +25,14 @@ Railway detects Python repositories automatically and is the easiest way to spin
 1. **Commit your code to GitHub.** Ensure `.gitignore` is pushing your project minus the `venv` and `.env` files.
 2. **Login to Railway** (https://railway.app) and click **"New Project"**.
 3. Select **"Deploy from GitHub repo"** and choose your DevDirection repository.
-4. **Configure the Start Command**:
-   By default, your repo now contains a `Procfile` at the root which specifies `web: uvicorn main:app --host 0.0.0.0 --port $PORT`. Railway will read this automatically.
-5. **Add Environment Variables**:
+4. **Configure the Root Directory (Crucial Step)**:
+   Since the actual code is inside the `backend/` folder, you must tell Railway to look there.
+   - Go to your newly deployed project > **Settings** tab.
+   - Scroll down to **Service** > **Root Directory** and type `/backend`.
+   - Click the checkmark to save.
+5. **Configure the Start Command**:
+   By default, your repo contains a `Procfile` inside the backend folder which specifies `web: uvicorn main:app --host 0.0.0.0 --port $PORT`. Railway will read this automatically once the root is set.
+6. **Add Environment Variables**:
    - Go to your newly deployed project > **Variables** tab.
    - Click **New Variable** and add `GOOGLE_API_KEY` with your actual secret key.
    - Wait 1 minute for Railway to seamlessly redeploy your application.
