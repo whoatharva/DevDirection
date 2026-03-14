@@ -1,0 +1,307 @@
+[
+  {
+    "user_id": "u1",
+    "name": "Amit",
+    "education": "B.Sc Computer Science",
+    "skills": [
+      "Python",
+      "Data Analysis",
+      "Statistics"
+    ],
+    "interests": [
+      "AI",
+      "Machine Learning",
+      "Startups"
+    ],
+    "current_role": "Junior Data Analyst",
+    "experience_years": 1,
+    "career_phase": "entry_level",
+    "goals": [
+      "Senior Data Scientist at FAANG",
+      "Lead AI projects",
+      "Build ML products"
+    ],
+    "highest_qualification": "B.Sc Computer Science",
+    "current_class": "",
+    "board": "Other",
+    "location": {
+      "city": "Ahmedabad",
+      "state": "Gujarat"
+    },
+    "language_preference": "English",
+    "age": 22,
+    "gender": "Male",
+    "planning_for": "Degree (after 12th)"
+  },
+  {
+    "user_id": "u2",
+    "name": "Neha",
+    "education": "B.Tech Information Technology",
+    "skills": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "APIs"
+    ],
+    "interests": [
+      "Web Development",
+      "AI Integration",
+      "UI/UX"
+    ],
+    "current_role": "Full-Stack Developer",
+    "experience_years": 2,
+    "career_phase": "mid_level",
+    "goals": [
+      "AI-First Full-Stack Engineer",
+      "Build AI-powered applications",
+      "Lead technical teams"
+    ],
+    "highest_qualification": "B.Tech Information Technology",
+    "current_class": "",
+    "board": "Other",
+    "location": {
+      "city": "Surat",
+      "state": "Gujarat"
+    },
+    "language_preference": "English",
+    "age": 24,
+    "gender": "Female",
+    "planning_for": "Degree (after 12th)"
+  },
+  {
+    "user_id": "u3",
+    "name": "Ravi",
+    "education": "B.Com + MBA",
+    "skills": [
+      "Excel",
+      "SQL",
+      "Business Intelligence"
+    ],
+    "interests": [
+      "FinTech",
+      "AI Analytics",
+      "Data Strategy"
+    ],
+    "current_role": "Business Analyst",
+    "experience_years": 3,
+    "career_phase": "mid_level",
+    "goals": [
+      "AI Product Manager",
+      "Lead data strategy",
+      "Build AI products"
+    ],
+    "highest_qualification": "MBA",
+    "current_class": "",
+    "board": "Other",
+    "location": {
+      "city": "Mumbai",
+      "state": "Maharashtra"
+    },
+    "language_preference": "English",
+    "age": 26,
+    "gender": "Male",
+    "planning_for": "Degree (after 12th)"
+  },
+  {
+    "user_id": "u4",
+    "name": "Priya",
+    "education": "PhD in Mathematics",
+    "skills": [
+      "Research",
+      "Statistics",
+      "R",
+      "MATLAB"
+    ],
+    "interests": [
+      "AI Research",
+      "Deep Learning",
+      "Publications"
+    ],
+    "current_role": "Research Scientist",
+    "experience_years": 4,
+    "career_phase": "senior_level",
+    "goals": [
+      "AI Research Scientist",
+      "Publish breakthrough research",
+      "Lead AI innovation"
+    ],
+    "highest_qualification": "PhD",
+    "current_class": "",
+    "board": "Other",
+    "location": {
+      "city": "Bangalore",
+      "state": "Karnataka"
+    },
+    "language_preference": "English",
+    "age": 28,
+    "gender": "Female",
+    "planning_for": "Degree (after 12th)"
+  },
+  {
+    "user_id": "q1",
+    "name": "Amit Quiz",
+    "education": "Class 10",
+    "skills": [],
+    "interests": [],
+    "current_role": null,
+    "experience_years": 0,
+    "career_phase": "student",
+    "goals": [],
+    "highest_qualification": "Class 10",
+    "current_class": "10",
+    "board": "GSEB",
+    "location": {
+      "city": "Ahmedabad",
+      "state": "Gujarat"
+    },
+    "language_preference": "en",
+    "age": 16,
+    "gender": "M",
+    "planning_for": "11-12 (Science/Commerce/Arts)"
+  },
+  {
+    "user_id": "q2",
+    "name": "Riya Quiz",
+    "education": "Class 12",
+    "skills": [],
+    "interests": [],
+    "current_role": null,
+    "experience_years": 0,
+    "career_phase": "student",
+    "goals": [],
+    "highest_qualification": "Class 12",
+    "current_class": "12",
+    "board": "CBSE",
+    "location": {
+      "city": "Surat",
+      "state": "Gujarat"
+    },
+    "language_preference": "en",
+    "age": 17,
+    "gender": "F",
+    "planning_for": "11-12 (Science/Commerce/Arts)"
+  },
+  {
+    "user_id": "test_user_123",
+    "name": "Test User",
+    "education": "Graduate",
+    "skills": [],
+    "interests": [],
+    "career_goals": [],
+    "location": {
+      "city": "Mumbai",
+      "state": "Maharashtra"
+    },
+    "experience_level": "beginner",
+    "preferred_learning_style": [],
+    "time_commitment": "5 hours per week",
+    "budget": null
+  },
+  {
+    "user_id": "u_vy2lel",
+    "name": "sarab",
+    "education": "10th",
+    "skills": [],
+    "interests": [],
+    "career_goals": [],
+    "location": {
+      "city": "Ahmedabad",
+      "state": "Gujarat"
+    },
+    "experience_level": "beginner",
+    "preferred_learning_style": [],
+    "time_commitment": "5 hours per week",
+    "budget": null
+  },
+  {
+    "user_id": "test_user_final",
+    "name": "Test User",
+    "education": "Graduate",
+    "skills": [],
+    "interests": [],
+    "career_goals": [],
+    "location": {
+      "city": "Mumbai",
+      "state": "Maharashtra"
+    },
+    "experience_level": "beginner",
+    "preferred_learning_style": [],
+    "time_commitment": "5 hours per week",
+    "budget": null
+  },
+  {
+    "user_id": "test_final",
+    "name": "Test User Final",
+    "education": "Graduate",
+    "skills": [],
+    "interests": [],
+    "career_goals": [],
+    "location": {
+      "city": "Mumbai",
+      "state": "Maharashtra"
+    },
+    "experience_level": "beginner",
+    "preferred_learning_style": [],
+    "time_commitment": "5 hours per week",
+    "budget": null
+  },
+  {
+    "user_id": "u_dmvro8",
+    "name": "manan",
+    "education": "Graduate",
+    "skills": [],
+    "interests": [],
+    "current_role": null,
+    "experience_years": 0,
+    "career_phase": "student",
+    "skill_levels": {},
+    "goals": [],
+    "time_commitment": "5 hours per week",
+    "learning_style": "mixed"
+  },
+  {
+    "user_id": "u_8t7tuq",
+    "name": "Atharva Chitre",
+    "education": "12th",
+    "skills": [],
+    "interests": [],
+    "current_role": null,
+    "experience_years": 0,
+    "career_phase": "student",
+    "skill_levels": {},
+    "goals": [],
+    "career_goals": [],
+    "time_commitment": "5 hours per week",
+    "learning_style": "mixed"
+  },
+  {
+    "user_id": "u_u7432r",
+    "name": "Hansil123",
+    "education": "10th",
+    "skills": [],
+    "interests": [],
+    "current_role": null,
+    "experience_years": 0,
+    "career_phase": "student",
+    "skill_levels": {},
+    "goals": [],
+    "career_goals": [],
+    "time_commitment": "5 hours per week",
+    "learning_style": "mixed"
+  },
+  {
+    "user_id": "guest",
+    "name": "Generated User",
+    "education": "Not specified",
+    "skills": [],
+    "interests": [],
+    "current_role": null,
+    "experience_years": 0,
+    "career_phase": "student",
+    "skill_levels": {},
+    "goals": [],
+    "career_goals": [],
+    "time_commitment": "Flexible",
+    "learning_style": "mixed"
+  }
+]

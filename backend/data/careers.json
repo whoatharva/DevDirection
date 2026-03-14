@@ -1,0 +1,14 @@
+[
+  {
+    "degree": "B.Sc Computer Science",
+    "options": ["Data Scientist", "AI Engineer", "Web Developer"]
+  },
+  {
+    "degree": "B.Tech Information Technology",
+    "options": ["Frontend Developer", "Full-Stack Engineer", "Cloud Engineer"]
+  },
+  {
+    "degree": "B.Com",
+    "options": ["Financial Analyst", "Business Analyst", "Operations Associate"]
+  }
+]

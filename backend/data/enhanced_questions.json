@@ -1,0 +1,296 @@
+[
+  {
+    "qid": "acad_1",
+    "question": "I enjoy solving complex mathematical problems and logical puzzles.",
+    "question_type": "likert_scale",
+    "category": "academic",
+    "difficulty": "medium",
+    "weight": 1.0,
+    "required": true,
+    "explanation": "This helps assess mathematical and analytical aptitude"
+  },
+  {
+    "qid": "acad_2",
+    "question": "I prefer subjects that involve hands-on experimentation and practical application.",
+    "question_type": "likert_scale",
+    "category": "academic",
+    "difficulty": "easy",
+    "weight": 1.0,
+    "required": true,
+    "explanation": "This indicates preference for practical vs theoretical learning"
+  },
+  {
+    "qid": "acad_3",
+    "question": "I enjoy reading and analyzing literature, history, and social sciences.",
+    "question_type": "likert_scale",
+    "category": "academic",
+    "difficulty": "easy",
+    "weight": 1.0,
+    "required": true,
+    "explanation": "This assesses interest in humanities and social sciences"
+  },
+  {
+    "qid": "acad_4",
+    "question": "I am comfortable working with numbers, statistics, and financial data.",
+    "question_type": "likert_scale",
+    "category": "academic",
+    "difficulty": "medium",
+    "weight": 1.0,
+    "required": true,
+    "explanation": "This evaluates comfort with quantitative analysis"
+  },
+  {
+    "qid": "acad_5",
+    "question": "I enjoy learning about technology, programming, and digital tools.",
+    "question_type": "likert_scale",
+    "category": "academic",
+    "difficulty": "easy",
+    "weight": 1.0,
+    "required": true,
+    "explanation": "This measures interest in technology and computing"
+  },
+  {
+    "qid": "pers_1",
+    "question": "I prefer working independently rather than in large groups.",
+    "question_type": "likert_scale",
+    "category": "personality",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "required": true,
+    "explanation": "This assesses work style preferences"
+  },
+  {
+    "qid": "pers_2",
+    "question": "I enjoy taking leadership roles and organizing team activities.",
+    "question_type": "likert_scale",
+    "category": "personality",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "required": true,
+    "explanation": "This evaluates leadership tendencies"
+  },
+  {
+    "qid": "pers_3",
+    "question": "I am naturally curious and enjoy exploring new ideas and concepts.",
+    "question_type": "likert_scale",
+    "category": "personality",
+    "difficulty": "easy",
+    "weight": 0.9,
+    "required": true,
+    "explanation": "This measures intellectual curiosity"
+  },
+  {
+    "qid": "pers_4",
+    "question": "I prefer structured, organized approaches to problem-solving.",
+    "question_type": "likert_scale",
+    "category": "personality",
+    "difficulty": "medium",
+    "weight": 0.7,
+    "required": true,
+    "explanation": "This assesses problem-solving style"
+  },
+  {
+    "qid": "pers_5",
+    "question": "I enjoy creative activities like writing, art, or music.",
+    "question_type": "likert_scale",
+    "category": "personality",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "required": true,
+    "explanation": "This evaluates creative tendencies"
+  },
+  {
+    "qid": "skill_1",
+    "question": "How would you rate your current programming skills?",
+    "question_type": "multiple_choice",
+    "category": "skills",
+    "difficulty": "medium",
+    "weight": 1.0,
+    "options": ["No experience", "Beginner", "Intermediate", "Advanced", "Expert"],
+    "required": true,
+    "explanation": "This assesses current technical skills"
+  },
+  {
+    "qid": "skill_2",
+    "question": "How comfortable are you with public speaking and presentations?",
+    "question_type": "likert_scale",
+    "category": "skills",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "required": true,
+    "explanation": "This evaluates communication skills"
+  },
+  {
+    "qid": "skill_3",
+    "question": "I can easily learn new software and digital tools.",
+    "question_type": "likert_scale",
+    "category": "skills",
+    "difficulty": "easy",
+    "weight": 0.9,
+    "required": true,
+    "explanation": "This measures technological adaptability"
+  },
+  {
+    "qid": "skill_4",
+    "question": "I am good at analyzing data and finding patterns.",
+    "question_type": "likert_scale",
+    "category": "skills",
+    "difficulty": "medium",
+    "weight": 1.0,
+    "required": true,
+    "explanation": "This assesses analytical abilities"
+  },
+  {
+    "qid": "skill_5",
+    "question": "I can work well under pressure and meet tight deadlines.",
+    "question_type": "likert_scale",
+    "category": "skills",
+    "difficulty": "easy",
+    "weight": 0.7,
+    "required": true,
+    "explanation": "This evaluates stress management and time management"
+  },
+  {
+    "qid": "int_1",
+    "question": "I am interested in understanding how businesses and markets work.",
+    "question_type": "likert_scale",
+    "category": "interests",
+    "difficulty": "easy",
+    "weight": 0.9,
+    "required": true,
+    "explanation": "This measures interest in business and commerce"
+  },
+  {
+    "qid": "int_2",
+    "question": "I enjoy helping others and making a positive impact on society.",
+    "question_type": "likert_scale",
+    "category": "interests",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "required": true,
+    "explanation": "This evaluates social consciousness and helping orientation"
+  },
+  {
+    "qid": "int_3",
+    "question": "I am fascinated by scientific discoveries and research.",
+    "question_type": "likert_scale",
+    "category": "interests",
+    "difficulty": "easy",
+    "weight": 0.9,
+    "required": true,
+    "explanation": "This measures interest in science and research"
+  },
+  {
+    "qid": "int_4",
+    "question": "I enjoy working with my hands and building things.",
+    "question_type": "likert_scale",
+    "category": "interests",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "required": true,
+    "explanation": "This assesses interest in practical, hands-on work"
+  },
+  {
+    "qid": "int_5",
+    "question": "I am interested in environmental issues and sustainability.",
+    "question_type": "likert_scale",
+    "category": "interests",
+    "difficulty": "easy",
+    "weight": 0.7,
+    "required": true,
+    "explanation": "This evaluates environmental consciousness"
+  },
+  {
+    "qid": "val_1",
+    "question": "What is most important to you in a career?",
+    "question_type": "multiple_choice",
+    "category": "values",
+    "difficulty": "medium",
+    "weight": 1.0,
+    "options": ["High salary", "Job security", "Creative freedom", "Helping others", "Work-life balance"],
+    "required": true,
+    "explanation": "This assesses career values and priorities"
+  },
+  {
+    "qid": "val_2",
+    "question": "I prefer a stable, predictable work environment.",
+    "question_type": "likert_scale",
+    "category": "values",
+    "difficulty": "easy",
+    "weight": 0.7,
+    "required": true,
+    "explanation": "This evaluates preference for stability vs change"
+  },
+  {
+    "qid": "val_3",
+    "question": "I value continuous learning and professional development.",
+    "question_type": "likert_scale",
+    "category": "values",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "required": true,
+    "explanation": "This measures commitment to lifelong learning"
+  },
+  {
+    "qid": "learn_1",
+    "question": "How do you prefer to learn new concepts?",
+    "question_type": "multiple_choice",
+    "category": "learning_style",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "options": ["Reading books/articles", "Watching videos", "Hands-on practice", "Group discussions", "One-on-one mentoring"],
+    "required": true,
+    "explanation": "This identifies preferred learning methods"
+  },
+  {
+    "qid": "learn_2",
+    "question": "I learn best when I can apply concepts immediately in real projects.",
+    "question_type": "likert_scale",
+    "category": "learning_style",
+    "difficulty": "easy",
+    "weight": 0.8,
+    "required": true,
+    "explanation": "This assesses preference for practical application"
+  },
+  {
+    "qid": "work_1",
+    "question": "I prefer working in a collaborative team environment.",
+    "question_type": "likert_scale",
+    "category": "work_environment",
+    "difficulty": "easy",
+    "weight": 0.7,
+    "required": true,
+    "explanation": "This evaluates team vs individual work preferences"
+  },
+  {
+    "qid": "work_2",
+    "question": "I am comfortable with remote work and digital communication.",
+    "question_type": "likert_scale",
+    "category": "work_environment",
+    "difficulty": "easy",
+    "weight": 0.7,
+    "required": true,
+    "explanation": "This assesses comfort with remote work"
+  },
+  {
+    "qid": "goal_1",
+    "question": "What is your primary career goal for the next 5 years?",
+    "question_type": "multiple_choice",
+    "category": "career_goals",
+    "difficulty": "medium",
+    "weight": 1.0,
+    "options": ["Become an expert in my field", "Start my own business", "Move into management", "Change careers completely", "Achieve work-life balance"],
+    "required": true,
+    "explanation": "This identifies long-term career aspirations"
+  },
+  {
+    "qid": "goal_2",
+    "question": "I am willing to invest significant time and effort in my career development.",
+    "question_type": "likert_scale",
+    "category": "career_goals",
+    "difficulty": "easy",
+    "weight": 0.9,
+    "required": true,
+    "explanation": "This measures commitment to career growth"
+  }
+]

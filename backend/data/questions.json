@@ -1,0 +1,12 @@
+[
+  { "qid": "q1",  "text": "I enjoy solving logical puzzles and math problems.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "technical" },
+  { "qid": "q2",  "text": "I like working with computers—coding, apps, or tinkering with tech.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "technical" },
+  { "qid": "q3",  "text": "I love discussing ideas through writing, reading, or public speaking.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "creative" },
+  { "qid": "q4",  "text": "I enjoy understanding how markets, business, and finance work.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "analytical" },
+  { "qid": "q5",  "text": "I like hands-on work—fixing things, operating tools, or practical tasks.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "vocational" },
+  { "qid": "q6",  "text": "I prefer practical, hands-on learning over memorizing theory.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "vocational" },
+  { "qid": "q7",  "text": "I am comfortable working with numbers, accounts, and budgets.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "analytical" },
+  { "qid": "q8",  "text": "I enjoy doing experiments or precise lab/technical work.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "technical" },
+  { "qid": "q9",  "text": "I like understanding finance, markets, and business news.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "analytical" },
+  { "qid": "q10", "text": "I enjoy creative writing, literature, or storytelling.", "options": ["0 = No", "1 = Somewhat", "2 = Mostly", "3 = Yes"], "category": "creative" }
+]
