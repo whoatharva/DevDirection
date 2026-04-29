@@ -3850,5 +3850,149 @@
     },
     "recommendations": [],
     "submitted_at": "2026-03-14T21:17:38.225600"
+  },
+  {
+    "attempt_id": "attempt_df29e716",
+    "user_id": "user_1773996234591",
+    "answers": [
+      {
+        "qid": "undefined",
+        "score": 2
+      }
+    ],
+    "scores": {
+      "technical": 0.0,
+      "creative": 0.0,
+      "analytical": 0.0,
+      "social": 0.0,
+      "leadership": 0.0,
+      "vocational": 0.0
+    },
+    "recommendations": [],
+    "submitted_at": "2026-03-20T08:44:07.377201"
+  },
+  {
+    "attempt_id": "attempt_2af18545",
+    "user_id": "u1",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q3",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 3
+      },
+      {
+        "qid": "q5",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "technical": 100.0,
+      "creative": 66.66666666666666,
+      "analytical": 75.0,
+      "social": 25.0,
+      "leadership": 0.0,
+      "vocational": 50.0
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Financial Analyst",
+      "AI Engineer",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-03-31T18:25:22.829992"
+  },
+  {
+    "attempt_id": "attempt_83adb43d",
+    "user_id": "u1",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q3",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 3
+      },
+      {
+        "qid": "q5",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "technical": 100.0,
+      "creative": 66.66666666666666,
+      "analytical": 75.0,
+      "social": 25.0,
+      "leadership": 0.0,
+      "vocational": 50.0
+    },
+    "recommendations": [
+      "Business Analyst",
+      "Research Scientist",
+      "Software Engineer",
+      "Financial Analyst",
+      "Data Scientist"
+    ],
+    "submitted_at": "2026-03-31T18:25:37.279594"
+  },
+  {
+    "attempt_id": "attempt_b948667a",
+    "user_id": "user_1773996234591",
+    "answers": [
+      {
+        "qid": "undefined",
+        "score": 1
+      }
+    ],
+    "scores": {
+      "technical": 0.0,
+      "creative": 0.0,
+      "analytical": 0.0,
+      "social": 0.0,
+      "leadership": 0.0,
+      "vocational": 0.0
+    },
+    "recommendations": [],
+    "submitted_at": "2026-04-03T18:44:07.691537"
+  },
+  {
+    "attempt_id": "attempt_be126b40",
+    "user_id": "user_1773996234591",
+    "answers": [
+      {
+        "qid": "undefined",
+        "score": 1
+      }
+    ],
+    "scores": {
+      "technical": 0.0,
+      "creative": 0.0,
+      "analytical": 0.0,
+      "social": 0.0,
+      "leadership": 0.0,
+      "vocational": 0.0
+    },
+    "recommendations": [],
+    "submitted_at": "2026-04-04T06:34:44.934873"
   }
 ]

@@ -303,5 +303,40 @@
     "career_goals": [],
     "time_commitment": "Flexible",
     "learning_style": "mixed"
+  },
+  {
+    "user_id": "user_1773996234591",
+    "name": "Quiz User",
+    "education": "Not specified",
+    "skills": [],
+    "interests": [],
+    "career_goals": [],
+    "time_commitment": "part-time",
+    "learning_style": "mixed"
+  },
+  {
+    "user_id": "nonexistent_user_xyz",
+    "name": "Quiz User",
+    "education": "Not specified",
+    "skills": [],
+    "interests": [],
+    "career_goals": [],
+    "time_commitment": "part-time",
+    "learning_style": "mixed"
+  },
+  {
+    "user_id": "user_1774983323593",
+    "name": "Quiz User",
+    "education": "Not specified",
+    "skills": [],
+    "interests": [],
+    "current_role": null,
+    "experience_years": 0,
+    "career_phase": "student",
+    "skill_levels": {},
+    "goals": [],
+    "career_goals": [],
+    "time_commitment": "part-time",
+    "learning_style": "mixed"
   }
 ]
