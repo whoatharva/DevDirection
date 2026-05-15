@@ -36,18 +36,18 @@ function renderMermaid(data, containerId) {
         return;
     }
 
-    container.innerHTML = `<div id="d3-roadmap-wrapper" style="width:100%; overflow-x:auto; background:white; padding: 20px 0; border-radius: 4px; border: 1px solid var(--border);"></div>
-                           <div id="d3-tooltip" style="position:absolute; visibility:hidden; background:white; border: 1.5px solid #D4D2CC; border-radius: 4px; padding: 10px 14px; font-size: 13px; max-width: 260px; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.05); pointer-events:none;"></div>`;
+    container.innerHTML = `<div id="d3-roadmap-wrapper" style="width:100%; overflow-x:auto; background:rgba(24, 24, 27, 0.4); padding: 20px 0; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08);"></div>
+                           <div id="d3-tooltip" style="position:absolute; visibility:hidden; background:rgba(24, 24, 27, 0.95); backdrop-filter:blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px 16px; font-size: 13px; max-width: 280px; z-index: 1000; box-shadow: 0 8px 32px rgba(0,0,0,0.5); pointer-events:none; color: #f4f4f5;"></div>`;
 
     const wrapper = container.querySelector('#d3-roadmap-wrapper');
     const tooltip = container.querySelector('#d3-tooltip');
 
     // Layout parameters
-    const nodeWidth = 180;
-    const nodeHeight = 56;
+    const nodeWidth = 200;
+    const nodeHeight = 64;
     const horizontalSpacing = 60;
     const verticalSpacing = 120; // 120px row height config
-    const startX = 180;
+    const startX = 280;
     const startY = 40;
 
     let maxMilestones = 0;
@@ -60,9 +60,9 @@ function renderMermaid(data, containerId) {
     const width = Math.max(800, startX + maxMilestones * (nodeWidth + horizontalSpacing) + 50);
     const height = phases.length * verticalSpacing + 80;
 
-    wrapper.style.background = '#FAFAFA';
-    wrapper.style.border = '1.5px solid #D4D2CC';
-    wrapper.style.borderRadius = '8px';
+    wrapper.style.background = 'rgba(24, 24, 27, 0.4)';
+    wrapper.style.border = '1px solid rgba(255, 255, 255, 0.08)';
+    wrapper.style.borderRadius = '12px';
     wrapper.style.padding = '32px';
 
     if (typeof d3 === 'undefined') {
@@ -85,7 +85,7 @@ function renderMermaid(data, containerId) {
         .attr("orient", "auto")
         .append("path")
         .attr("d", "M0,-5L10,0L0,5")
-        .attr("fill", "#D4D2CC");
+        .attr("fill", "rgba(255, 255, 255, 0.2)");
 
     svg.append("defs").append("marker")
         .attr("id", "curve-arrow")
@@ -97,7 +97,7 @@ function renderMermaid(data, containerId) {
         .attr("orient", "auto")
         .append("path")
         .attr("d", "M0,-5L10,0L0,5")
-        .attr("fill", "#2D5BE3");
+        .attr("fill", "#6366f1");
 
     // Add Drop shadow filter for hover state
     const filter = svg.select("defs").append("filter")
@@ -120,16 +120,36 @@ function renderMermaid(data, containerId) {
     phases.forEach((phase, pIdx) => {
         const py = startY + pIdx * verticalSpacing;
 
+        // Neural Shorthand Mapper to prevent overlaps - RESTORED AS REQUESTED
+        const abbreviations = {
+            "MACHINE LEARNING": "ML",
+            "ARTIFICIAL INTELLIGENCE": "AI",
+            "NATURAL LANGUAGE PROCESSING": "NLP",
+            "DEEP LEARNING": "DL",
+            "DATA ENGINEERING": "DE",
+            "FULL STACK DEVELOPMENT": "FSD",
+            "BACKEND DEVELOPMENT": "BE",
+            "FRONTEND DEVELOPMENT": "FE",
+            "SOFTWARE ENGINEERING": "SWE",
+            "INFRASTRUCTURE": "INFRA",
+            "CYBERSECURITY": "CYBER",
+            "DATA SCIENCE": "DS"
+        };
+
+        let displayName = phase.name.replace(/^PHASE \d+:?\s*/i, "").toUpperCase();
+        for (const [full, short] of Object.entries(abbreviations)) {
+            displayName = displayName.replace(full, short);
+        }
+
         svg.append("text")
             .attr("x", 20)
-            .attr("y", py + nodeHeight / 2 + 4)
+            .attr("y", py + nodeHeight / 2 + 5)
             .attr("text-anchor", "start")
-            .style("font-weight", 600)
-            .style("font-size", "13px")
-            .style("fill", "#6B6966")
-            .style("letter-spacing", "0.04em")
+            .style("font-weight", 700)
+            .style("font-size", "11px")
+            .style("fill", "#a1a1aa")
             .style("text-transform", "uppercase")
-            .text(phase.name);
+            .text(`PHASE ${pIdx + 1}: ${displayName.length > 25 ? displayName.substring(0, 22) + "..." : displayName}`);
 
         let prevNode = null;
         const milestones = phase.milestones || [];
@@ -172,7 +192,7 @@ function renderMermaid(data, containerId) {
         .append("path")
         .attr("class", "link")
         .attr("fill", "none")
-        .attr("stroke", d => d.type === 'intra' ? "#D4D2CC" : "#2D5BE3")
+        .attr("stroke", d => d.type === 'intra' ? "rgba(255, 255, 255, 0.15)" : "#6366f1")
         .attr("stroke-width", 1.5)
         .attr("stroke-dasharray", d => d.type === 'inter' ? "4 3" : "none")
         .attr("opacity", d => d.type === 'inter' ? 0.6 : 1)
@@ -190,10 +210,10 @@ function renderMermaid(data, containerId) {
         });
 
     const diffStyles = {
-        beginner: { fill: '#F0F7FF', stroke: '#2D5BE3' },
-        intermediate: { fill: '#F0FFF7', stroke: '#1A7A4A' },
-        advanced: { fill: '#FFFBF0', stroke: '#E67E00' },
-        expert: { fill: '#FFF0F0', stroke: '#C0392B' }
+        beginner: { fill: 'rgba(99, 102, 241, 0.1)', stroke: '#6366f1' },
+        intermediate: { fill: 'rgba(16, 185, 129, 0.1)', stroke: '#10b981' },
+        advanced: { fill: 'rgba(245, 158, 11, 0.1)', stroke: '#f59e0b' },
+        expert: { fill: 'rgba(239, 68, 68, 0.1)', stroke: '#ef4444' }
     };
 
     container.style.position = 'relative';
@@ -233,9 +253,9 @@ function renderMermaid(data, containerId) {
             }
 
             tooltip.html(`
-                <div style="font-weight: 600; color: #1A1A1A; margin-bottom: 6px;">${d.title}</div>
-                <div style="color: #6B6966; line-height: 1.6; margin-bottom: 12px;">${d.description}</div>
-                <div style="text-align: right;"><span style="display:inline-block; padding: 4px 8px; background: #F5F4F0; border-radius: 4px; font-size: 11px; font-weight: 600; color: #6B6966;">⌚ ${d.duration}</span></div>
+                <div style="font-weight: 600; color: #f4f4f5; margin-bottom: 6px;">${d.title}</div>
+                <div style="color: #a1a1aa; line-height: 1.6; margin-bottom: 12px;">${d.description}</div>
+                <div style="text-align: right;"><span style="display:inline-block; padding: 4px 8px; background: rgba(255,255,255,0.1); border-radius: 4px; font-size: 11px; font-weight: 600; color: #a1a1aa;">⌚ ${d.duration}</span></div>
             `);
 
             let tx = d.x + nodeWidth / 2 - 120;
@@ -273,9 +293,9 @@ function renderMermaid(data, containerId) {
         .style("align-items", "center")
         .style("justify-content", "center")
         .style("text-align", "center")
-        .style("font-size", "13px")
+        .style("font-size", "12px")
         .style("font-weight", "500")
-        .style("color", "#1A1A1A")
+        .style("color", "#f4f4f5")
         .style("line-height", "1.4")
         .style("user-select", "none")
         .text(d => d.title);
@@ -287,10 +307,13 @@ function renderMermaid(data, containerId) {
 }
 
 function toggleSubtasks(element) {
+    // If element is the card itself or a child
     const card = element.closest('.milestone-card');
+    if (!card) return;
     card.classList.toggle('expanded');
     const isExpanded = card.classList.contains('expanded');
-    element.textContent = isExpanded ? '▾ Hide learning steps' : '▸ View learning steps';
+    const btn = card.querySelector('.subtask-st-btn');
+    if (btn) btn.textContent = isExpanded ? '▾ Hide learning steps' : '▸ View learning steps';
 }
 
 function renderMilestoneCard(ms, index, totalMilestones) {
@@ -299,10 +322,10 @@ function renderMilestoneCard(ms, index, totalMilestones) {
     // Add difficulty-color logic directly as an allowed exception for dynamic non-var colors, OR map it to simple classes.
     // Given CSS classes for colors aren't present except general badges, we keep the inline border-color because it's dynamic.
     const diffColorMap = {
-        beginner: '#1A7A4A',
-        intermediate: '#1446A0',
-        advanced: '#E67E00',
-        expert: '#8B1A1A'
+        beginner: '#34d399',
+        intermediate: '#60a5fa',
+        advanced: '#fbbf24',
+        expert: '#f87171'
     };
     const diffColor = diffColorMap[difficultyStr] || diffColorMap['beginner'];
 
@@ -327,7 +350,7 @@ function renderMilestoneCard(ms, index, totalMilestones) {
                             <span class="subtask-item-title">${st.task_title || 'Task'}</span> 
                             <span class="subtask-item-time">${st.estimated_time || ''}</span>
                         </div>
-                        <a href="${stURL}" target="_blank" class="subtask-item-link">→ ${st.resource_title || 'Resource'} <span class="subtask-item-ai">Handpicked by AI</span></a>
+                        <a href="${stURL}" target="_blank" class="subtask-item-link" onclick="event.stopPropagation()">→ ${st.resource_title || 'Resource'} <span class="subtask-item-ai">Handpicked by AI</span></a>
                     </div>
                 </div>
             `;
@@ -344,7 +367,7 @@ function renderMilestoneCard(ms, index, totalMilestones) {
     }
 
     return `
-        <div class="card milestone-card completion-card" style="border-left: 4px solid ${diffColor}; position:relative; overflow:hidden;">
+        <div class="card milestone-card completion-card" onclick="toggleSubtasks(this)" style="border-left: 4px solid ${diffColor}; position:relative; overflow:hidden; cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.05)'" onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
             <div class="milestone-completed-circle"></div>
             <div class="milestone-step-label">Step ${index} of ${totalMilestones}</div>
             

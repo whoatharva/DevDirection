@@ -3994,5 +3994,1115 @@
     },
     "recommendations": [],
     "submitted_at": "2026-04-04T06:34:44.934873"
+  },
+  {
+    "attempt_id": "attempt_a0894329",
+    "user_id": "user_1777493028265",
+    "answers": [
+      {
+        "qid": "undefined",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "technical": 0.0,
+      "creative": 0.0,
+      "analytical": 0.0,
+      "social": 0.0,
+      "leadership": 0.0,
+      "vocational": 0.0
+    },
+    "recommendations": [],
+    "submitted_at": "2026-04-29T20:04:52.552802"
+  },
+  {
+    "attempt_id": "attempt_03d1711b",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "undefined",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "technical": 0.0,
+      "creative": 0.0,
+      "analytical": 0.0,
+      "social": 0.0,
+      "leadership": 0.0,
+      "vocational": 0.0
+    },
+    "recommendations": [],
+    "submitted_at": "2026-04-29T20:16:10.038271"
+  },
+  {
+    "attempt_id": "attempt_c8afbc2d",
+    "user_id": "test",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q3",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 3
+      },
+      {
+        "qid": "q5",
+        "score": 3
+      },
+      {
+        "qid": "q6",
+        "score": 3
+      },
+      {
+        "qid": "q7",
+        "score": 3
+      },
+      {
+        "qid": "q8",
+        "score": 3
+      },
+      {
+        "qid": "q9",
+        "score": 3
+      },
+      {
+        "qid": "q10",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "technical": 100.0,
+      "creative": 100.0,
+      "analytical": 100.0,
+      "social": 100.0,
+      "leadership": 100.0,
+      "vocational": 100.0
+    },
+    "recommendations": [
+      "Community Manager",
+      "Financial Analyst",
+      "HR Specialist",
+      "Software Engineer",
+      "Sales Manager"
+    ],
+    "submitted_at": "2026-04-29T20:17:32.446216"
+  },
+  {
+    "attempt_id": "attempt_4bfe0bd7",
+    "user_id": "user_1777493028265",
+    "answers": [
+      {
+        "qid": "undefined",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "technical": 0.0,
+      "creative": 0.0,
+      "analytical": 0.0,
+      "social": 0.0,
+      "leadership": 0.0,
+      "vocational": 0.0
+    },
+    "recommendations": [],
+    "submitted_at": "2026-04-29T20:20:12.099405"
+  },
+  {
+    "attempt_id": "attempt_6169cc6d",
+    "user_id": "user_1777493028265",
+    "answers": [
+      {
+        "qid": "undefined",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "technical": 0.0,
+      "creative": 0.0,
+      "analytical": 0.0,
+      "social": 0.0,
+      "leadership": 0.0,
+      "vocational": 0.0
+    },
+    "recommendations": [],
+    "submitted_at": "2026-04-29T20:26:25.997425"
+  },
+  {
+    "attempt_id": "attempt_90b96315",
+    "user_id": "test2",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q3",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 3
+      },
+      {
+        "qid": "q5",
+        "score": 3
+      },
+      {
+        "qid": "q6",
+        "score": 3
+      },
+      {
+        "qid": "q7",
+        "score": 3
+      },
+      {
+        "qid": "q8",
+        "score": 3
+      },
+      {
+        "qid": "q9",
+        "score": 3
+      },
+      {
+        "qid": "q10",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "technical": 100.0,
+      "creative": 100.0,
+      "analytical": 100.0,
+      "social": 100.0,
+      "leadership": 100.0,
+      "vocational": 100.0
+    },
+    "recommendations": [
+      "Financial Analyst",
+      "Software Engineer",
+      "Data Scientist",
+      "Content Creator",
+      "HR Specialist"
+    ],
+    "submitted_at": "2026-04-29T20:29:26.667650"
+  },
+  {
+    "attempt_id": "attempt_497d08b4",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 2
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q5",
+        "score": 3
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "technical": 83.33333333333334,
+      "creative": 0.0,
+      "analytical": 41.66666666666667,
+      "social": 0.0,
+      "leadership": 0.0,
+      "vocational": 50.0
+    },
+    "recommendations": [
+      "AI Engineer",
+      "Software Engineer",
+      "Data Scientist"
+    ],
+    "submitted_at": "2026-04-29T20:32:30.936265"
+  },
+  {
+    "attempt_id": "attempt_d18aba77",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 0
+      },
+      {
+        "qid": "q3",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 0
+      },
+      {
+        "qid": "q5",
+        "score": 1
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q7",
+        "score": 3
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q9",
+        "score": 3
+      },
+      {
+        "qid": "q10",
+        "score": 1
+      }
+    ],
+    "scores": {
+      "Science": 33.33333333333333,
+      "Commerce": 66.66666666666666,
+      "Arts": 66.66666666666666,
+      "Vocational": 16.666666666666664
+    },
+    "recommendations": [
+      "Business Analyst",
+      "Financial Analyst",
+      "Accountant"
+    ],
+    "submitted_at": "2026-05-04T18:15:54.546494"
+  },
+  {
+    "attempt_id": "attempt_c064da5e",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 0
+      },
+      {
+        "qid": "q2",
+        "score": 1
+      },
+      {
+        "qid": "q4",
+        "score": 1
+      },
+      {
+        "qid": "q5",
+        "score": 1
+      },
+      {
+        "qid": "q6",
+        "score": 1
+      },
+      {
+        "qid": "q7",
+        "score": 1
+      },
+      {
+        "qid": "q9",
+        "score": 2
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "Science": 11.11111111111111,
+      "Commerce": 44.44444444444444,
+      "Arts": 0.0,
+      "Vocational": 33.33333333333333
+    },
+    "recommendations": [
+      "Business Analyst",
+      "Financial Analyst",
+      "Accountant"
+    ],
+    "submitted_at": "2026-05-15T20:14:39.253858"
+  },
+  {
+    "attempt_id": "attempt_7fbaf946",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 1
+      },
+      {
+        "qid": "q2",
+        "score": 0
+      },
+      {
+        "qid": "q3",
+        "score": 0
+      },
+      {
+        "qid": "q4",
+        "score": 3
+      },
+      {
+        "qid": "q5",
+        "score": 2
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q7",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 3
+      },
+      {
+        "qid": "q9",
+        "score": 1
+      },
+      {
+        "qid": "q10",
+        "score": 2
+      }
+    ],
+    "scores": {
+      "Science": 44.44444444444444,
+      "Commerce": 44.44444444444444,
+      "Arts": 33.33333333333333,
+      "Vocational": 33.33333333333333
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T20:15:55.968043"
+  },
+  {
+    "attempt_id": "attempt_d56273e7",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 1
+      },
+      {
+        "qid": "q2",
+        "score": 0
+      },
+      {
+        "qid": "q3",
+        "score": 2
+      },
+      {
+        "qid": "q4",
+        "score": 2
+      },
+      {
+        "qid": "q6",
+        "score": 3
+      },
+      {
+        "qid": "q7",
+        "score": 3
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q9",
+        "score": 3
+      },
+      {
+        "qid": "q10",
+        "score": 1
+      }
+    ],
+    "scores": {
+      "Science": 11.11111111111111,
+      "Commerce": 88.88888888888889,
+      "Arts": 50.0,
+      "Vocational": 50.0
+    },
+    "recommendations": [
+      "Business Analyst",
+      "Financial Analyst",
+      "Accountant"
+    ],
+    "submitted_at": "2026-05-15T20:25:39.117425"
+  },
+  {
+    "attempt_id": "attempt_9c926ee4",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 0
+      },
+      {
+        "qid": "q2",
+        "score": 1
+      },
+      {
+        "qid": "q3",
+        "score": 0
+      },
+      {
+        "qid": "q4",
+        "score": 2
+      },
+      {
+        "qid": "q5",
+        "score": 2
+      },
+      {
+        "qid": "q6",
+        "score": 3
+      },
+      {
+        "qid": "q7",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 3
+      },
+      {
+        "qid": "q9",
+        "score": 3
+      },
+      {
+        "qid": "q10",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "Science": 44.44444444444444,
+      "Commerce": 55.55555555555556,
+      "Arts": 50.0,
+      "Vocational": 83.33333333333334
+    },
+    "recommendations": [
+      "Technician",
+      "Mechanic",
+      "Electrician"
+    ],
+    "submitted_at": "2026-05-15T20:34:23.068690"
+  },
+  {
+    "attempt_id": "attempt_ca59bc49",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 0
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q3",
+        "score": 2
+      },
+      {
+        "qid": "q4",
+        "score": 0
+      },
+      {
+        "qid": "q5",
+        "score": 3
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q7",
+        "score": 3
+      },
+      {
+        "qid": "q8",
+        "score": 3
+      },
+      {
+        "qid": "q9",
+        "score": 3
+      },
+      {
+        "qid": "q10",
+        "score": 3
+      }
+    ],
+    "scores": {
+      "Science": 66.66666666666666,
+      "Commerce": 66.66666666666666,
+      "Arts": 83.33333333333334,
+      "Vocational": 50.0
+    },
+    "recommendations": [
+      "Content Creator",
+      "HR Specialist",
+      "Writer"
+    ],
+    "submitted_at": "2026-05-15T20:38:48.749724"
+  },
+  {
+    "attempt_id": "attempt_4f2622e3",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q3",
+        "score": 0
+      },
+      {
+        "qid": "q4",
+        "score": 0
+      },
+      {
+        "qid": "q5",
+        "score": 0
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q7",
+        "score": 1
+      },
+      {
+        "qid": "q8",
+        "score": 3
+      },
+      {
+        "qid": "q9",
+        "score": 1
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "Science": 100.0,
+      "Commerce": 22.22222222222222,
+      "Arts": 0.0,
+      "Vocational": 0.0
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T20:52:00.643592"
+  },
+  {
+    "attempt_id": "attempt_a7985728",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 0
+      },
+      {
+        "qid": "q2",
+        "score": 0
+      },
+      {
+        "qid": "q4",
+        "score": 1
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "Science": 0.0,
+      "Commerce": 11.11111111111111,
+      "Arts": 0.0,
+      "Vocational": 0.0
+    },
+    "recommendations": [
+      "Business Analyst",
+      "Financial Analyst",
+      "Accountant"
+    ],
+    "submitted_at": "2026-05-15T20:57:21.734119"
+  },
+  {
+    "attempt_id": "attempt_4a48876c",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 0
+      },
+      {
+        "qid": "q2",
+        "score": 0
+      },
+      {
+        "qid": "q4",
+        "score": 1
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "Science": 0.0,
+      "Commerce": 11.11111111111111,
+      "Arts": 0.0,
+      "Vocational": 0.0
+    },
+    "recommendations": [
+      "Business Analyst",
+      "Financial Analyst",
+      "Accountant"
+    ],
+    "submitted_at": "2026-05-15T20:57:21.933569"
+  },
+  {
+    "attempt_id": "attempt_3fc1da6e",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 1
+      },
+      {
+        "qid": "q2",
+        "score": 0
+      },
+      {
+        "qid": "q3",
+        "score": 0
+      },
+      {
+        "qid": "q4",
+        "score": 0
+      },
+      {
+        "qid": "q5",
+        "score": 0
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q7",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q9",
+        "score": 0
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "Science": 11.11111111111111,
+      "Commerce": 0.0,
+      "Arts": 0.0,
+      "Vocational": 0.0
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T21:47:22.379837"
+  },
+  {
+    "attempt_id": "attempt_533d7188",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 0
+      },
+      {
+        "qid": "q2",
+        "score": 0
+      },
+      {
+        "qid": "q5",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "Science": 0.0,
+      "Commerce": 0.0,
+      "Arts": 0.0,
+      "Vocational": 0.0
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T21:52:38.139754"
+  },
+  {
+    "attempt_id": "attempt_2eba5a6a",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 0
+      },
+      {
+        "qid": "q2",
+        "score": 0
+      },
+      {
+        "qid": "q5",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "Science": 0.0,
+      "Commerce": 0.0,
+      "Arts": 0.0,
+      "Vocational": 0.0
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T21:52:38.296309"
+  },
+  {
+    "attempt_id": "attempt_bc182af0",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q3",
+        "score": 1
+      },
+      {
+        "qid": "q4",
+        "score": 1
+      },
+      {
+        "qid": "q6",
+        "score": 1
+      },
+      {
+        "qid": "q7",
+        "score": 2
+      },
+      {
+        "qid": "q8",
+        "score": 1
+      },
+      {
+        "qid": "q9",
+        "score": 2
+      },
+      {
+        "qid": "q10",
+        "score": 2
+      }
+    ],
+    "scores": {
+      "Science": 77.77777777777779,
+      "Commerce": 55.55555555555556,
+      "Arts": 50.0,
+      "Vocational": 16.666666666666664
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T21:54:33.583448"
+  },
+  {
+    "attempt_id": "attempt_b6caf309",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 1
+      },
+      {
+        "qid": "q5",
+        "score": 1
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q10",
+        "score": 2
+      }
+    ],
+    "scores": {
+      "Science": 66.66666666666666,
+      "Commerce": 11.11111111111111,
+      "Arts": 33.33333333333333,
+      "Vocational": 16.666666666666664
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T22:11:01.346757"
+  },
+  {
+    "attempt_id": "attempt_bc5300a6",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 1
+      },
+      {
+        "qid": "q5",
+        "score": 1
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q10",
+        "score": 2
+      }
+    ],
+    "scores": {
+      "Science": 66.66666666666666,
+      "Commerce": 11.11111111111111,
+      "Arts": 33.33333333333333,
+      "Vocational": 16.666666666666664
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T22:11:01.575393"
+  },
+  {
+    "attempt_id": "attempt_18b85287",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q2",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 3
+      },
+      {
+        "qid": "q5",
+        "score": 0
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q7",
+        "score": 2
+      },
+      {
+        "qid": "q8",
+        "score": 1
+      },
+      {
+        "qid": "q9",
+        "score": 2
+      },
+      {
+        "qid": "q10",
+        "score": 0
+      }
+    ],
+    "scores": {
+      "Science": 77.77777777777779,
+      "Commerce": 77.77777777777779,
+      "Arts": 0.0,
+      "Vocational": 0.0
+    },
+    "recommendations": [
+      "Software Engineer",
+      "Data Scientist",
+      "Research Scientist"
+    ],
+    "submitted_at": "2026-05-15T22:19:42.160200"
+  },
+  {
+    "attempt_id": "attempt_9edc381b",
+    "user_id": "guest",
+    "answers": [
+      {
+        "qid": "q1",
+        "score": 3
+      },
+      {
+        "qid": "q3",
+        "score": 3
+      },
+      {
+        "qid": "q4",
+        "score": 3
+      },
+      {
+        "qid": "q6",
+        "score": 0
+      },
+      {
+        "qid": "q7",
+        "score": 3
+      },
+      {
+        "qid": "q8",
+        "score": 0
+      },
+      {
+        "qid": "q9",
+        "score": 3
+      },
+      {
+        "qid": "q10",
+        "score": 1
+      }
+    ],
+    "scores": {
+      "Science": 33.33333333333333,
+      "Commerce": 100.0,
+      "Arts": 66.66666666666666,
+      "Vocational": 0.0
+    },
+    "recommendations": [
+      "Business Analyst",
+      "Financial Analyst",
+      "Accountant"
+    ],
+    "submitted_at": "2026-05-15T22:31:11.725964"
   }
 ]

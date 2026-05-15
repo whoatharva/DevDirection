@@ -2,7 +2,8 @@
 Roadmap Router - Handles AI-powered and custom roadmap generation
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import StreamingResponse
 from typing import List, Dict, Any
 from datetime import datetime
 
@@ -18,9 +19,11 @@ from app.models import (
     MilestoneStatus,
     CustomRoadmapRequest,
 )
+from pydantic import BaseModel
 from app.services.roadmap_engine import RoadmapEngine
 from app.services.hierarchical_roadmap import HierarchicalRoadmapEngine
 from app.services.user_roadmap_engine import UserRoadmapEngine
+from app.services.llm import generate_roadmap_stream, resume_roadmap_stream
 
 router = APIRouter()
 
@@ -37,6 +40,56 @@ user_roadmap_engine = UserRoadmapEngine()
 
 # ─── AI Roadmap Generation ───────────────────────────────────────────────────
 
+class ResumeRequest(BaseModel):
+    thread_id: str
+
+@router.post("/roadmap/generate-stream")
+def generate_roadmap_stream_endpoint(request: RoadmapRequest):
+    """Generate AI-powered career roadmap using SSE to stream agent updates"""
+    try:
+        user = next((u for u in users_data if u["user_id"] == request.user_id), None)
+        if not user:
+            user = {
+                "user_id": request.user_id,
+                "name": "Quiz User",
+                "education": "Not specified",
+                "skills": [],
+                "interests": [],
+                "career_goals": [],
+                "time_commitment": "part-time",
+                "learning_style": "mixed"
+            }
+            users_data.append(user)
+            save_json(USERS_FILE, users_data)
+            
+        user_profile = UserProfile(**user)
+        return StreamingResponse(generate_roadmap_stream(user_profile), media_type="text/event-stream")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/roadmap/resume-stream")
+def resume_roadmap_stream_endpoint(request: ResumeRequest):
+    """Resume a paused human-in-the-loop roadmap generation"""
+    try:
+        return StreamingResponse(resume_roadmap_stream(request.thread_id), media_type="text/event-stream")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+
+class ChatRequest(BaseModel):
+    user_id: str
+    message: str
+
+@router.post("/roadmap/chat")
+def roadmap_chat_endpoint(request: ChatRequest):
+    """Contextual Chatbot answering questions about the generated roadmap"""
+    try:
+        from app.services.llm import answer_roadmap_question
+        reply = answer_roadmap_question(request.user_id, request.message)
+        return {"reply": reply}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/roadmap/generate")
 def generate_roadmap(request: RoadmapRequest):

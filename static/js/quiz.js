@@ -60,8 +60,21 @@ async function startQuiz() {
   try {
     const rawQuestions = await apiGetQuestions();
     quizQuestions = rawQuestions.map(normaliseQuestion);
-    currentQuestionIndex = 0;
-    userAnswers = [];
+    
+    const savedProgress = localStorage.getItem('quiz_progress');
+    if (savedProgress) {
+      try {
+        userAnswers = JSON.parse(savedProgress);
+        currentQuestionIndex = Math.min(userAnswers.length, quizQuestions.length - 1);
+      } catch(e) {
+        userAnswers = [];
+        currentQuestionIndex = 0;
+      }
+    } else {
+      userAnswers = [];
+      currentQuestionIndex = 0;
+    }
+    
     renderQuestion();
   } catch (e) {
     content.innerHTML = `<div class="error-banner">${e.message}</div>`;
@@ -85,20 +98,50 @@ function renderQuestion() {
   }
 
   let html = `
-        <div class="quiz-container">
-            <div class="quiz-meta">Question ${currentQuestionIndex + 1} of ${quizQuestions.length}</div>
-            <div class="quiz-question">${q.text}</div>
-            <div class="quiz-options">
-                ${q.options.map((opt, i) => `
-                    <button class="option-btn" onclick="selectQuizOption(this, '${q.id}', '${typeof opt.score !== "undefined" ? opt.score : i}')">
-                        ${opt.text || opt}
-                    </button>
-                `).join('')}
+        <div style="position: relative; min-height: 70vh; display: flex; flex-direction: column; justify-content: center;">
+            <!-- Abstract tech badges securely inside bounds -->
+            <div class="desktop-only" style="position: absolute; left: 0; top: 25%; opacity: 0.9; transform: rotate(-5deg); pointer-events: none;">
+              <span class="tag" style="font-size: 14px; padding: 8px 16px; background: rgba(99, 102, 241, 0.1); color: #818cf8; border-color: rgba(99, 102, 241, 0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Algorithms</span>
+            </div>
+            <div class="desktop-only" style="position: absolute; left: 5%; bottom: 25%; opacity: 0.7; transform: rotate(8deg); pointer-events: none;">
+              <span class="tag" style="font-size: 13px; padding: 6px 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">API Design</span>
+            </div>
+            <div class="desktop-only" style="position: absolute; right: 0; top: 30%; opacity: 0.9; transform: rotate(6deg); pointer-events: none;">
+              <span class="tag" style="font-size: 14px; padding: 8px 16px; background: rgba(16, 185, 129, 0.1); color: #34d399; border-color: rgba(16, 185, 129, 0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Cloud Ops</span>
+            </div>
+            <div class="desktop-only" style="position: absolute; right: 5%; bottom: 20%; opacity: 0.6; transform: rotate(-6deg); pointer-events: none;">
+              <span class="tag" style="font-size: 13px; padding: 6px 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Databases</span>
+            </div>
+
+            <div class="quiz-container" style="animation: fadeIn 0.3s ease-in-out; text-align: center; position: relative; z-index: 2; background: rgba(24, 24, 27, 0.6); padding: 48px 32px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.2); backdrop-filter: blur(12px);">
+                <div class="quiz-meta" style="margin-bottom: 16px; font-weight: 500;">Question ${currentQuestionIndex + 1} of ${quizQuestions.length}</div>
+                <div class="quiz-question" style="font-size: 2rem; line-height: 1.4; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto;">${q.text}</div>
+                
+                <div class="quiz-options" style="max-width: 500px; width: 100%; margin: 0 auto;">
+                    ${q.options.map((opt, i) => `
+                        <button class="option-btn" style="text-align: center; padding: 16px 24px; font-size: 1.1rem; border-radius: 12px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);" onclick="selectQuizOption(this, '${q.id || q.qid}', '${typeof opt.score !== "undefined" ? opt.score : i}')">
+                            ${opt.text || opt}
+                        </button>
+                    `).join('')}
+                </div>
+                
+                ${currentQuestionIndex > 0 ? `
+                <div class="quiz-footer" style="justify-content: center; margin-top: 32px; display: flex;">
+                    <button class="btn btn-secondary visible" style="border-radius: 32px; padding: 10px 24px;" onclick="prevQuestion()">← Back</button>
+                </div>
+                ` : '<div style="height: 60px;"></div>'}
             </div>
         </div>
     `;
 
   content.innerHTML = html;
+}
+
+function prevQuestion() {
+  if (currentQuestionIndex > 0) {
+    currentQuestionIndex--;
+    renderQuestion();
+  }
 }
 
 function selectQuizOption(btn, qId, value) {
@@ -113,9 +156,11 @@ function selectQuizOption(btn, qId, value) {
     userAnswers.push({ qid: qId, value: value });
   }
 
+  localStorage.setItem('quiz_progress', JSON.stringify(userAnswers));
+
   setTimeout(() => {
     nextQuestion();
-  }, 300);
+  }, 400); // slightly longer delay for smooth feeling
 }
 
 function nextQuestion() {
@@ -128,8 +173,13 @@ async function submitQuiz() {
   const content = document.getElementById('quiz-content');
   if (typeof showSkeleton === 'function') showSkeleton('quiz-content');
 
+  localStorage.removeItem('quiz_progress');
+
   try {
-    const formattedAnswers = userAnswers.map(a => ({ qid: a.qid, score: parseInt(a.value) || 3 }));
+    const formattedAnswers = userAnswers.map(a => {
+      let s = parseInt(a.value);
+      return { qid: a.qid, score: isNaN(s) ? 3 : s };
+    });
     const result = await apiSubmitQuiz(currentUserId, formattedAnswers);
     
     // Save userId back to localStorage after successful submit

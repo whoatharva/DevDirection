@@ -805,6 +805,188 @@ GENERAL_TECH_SUBTASKS = {
             "resource_url": "https://www.markdownguide.org/getting-started/"
         },
     ],
+    "milestone_3": [
+        {
+            "task_title": "Master Core Productivity Tools",
+            "description": "Learn advanced features of Microsoft Excel/Google Sheets, Word, and presentation software",
+            "estimated_time": "10 hours",
+            "resource_type": "course",
+            "resource_title": "Coursera: Excel Skills for Business",
+            "resource_url": "https://www.coursera.org/specializations/excel"
+        },
+        {
+            "task_title": "Project Management Fundamentals",
+            "description": "Understand Agile methodologies, Scrum frameworks, and tools like Jira or Trello",
+            "estimated_time": "12 hours",
+            "resource_type": "course",
+            "resource_title": "Google Project Management Certificate",
+            "resource_url": "https://grow.google/certificates/project-management/"
+        },
+        {
+            "task_title": "Basic Data Analysis",
+            "description": "Learn how to collect, clean, and visualize data to make informed decisions",
+            "estimated_time": "8 hours",
+            "resource_type": "practice",
+            "resource_title": "DataCamp: Data Literacy",
+            "resource_url": "https://www.datacamp.com/"
+        }
+    ],
+    "milestone_4": [
+        {
+            "task_title": "Plan Your Digital Project",
+            "description": "Define scope, goals, target audience, and timeline for your first comprehensive digital project",
+            "estimated_time": "5 hours",
+            "resource_type": "documentation",
+            "resource_title": "Asana: Project Planning Guide",
+            "resource_url": "https://asana.com/resources/project-planning"
+        },
+        {
+            "task_title": "Execute Project & Build Deliverables",
+            "description": "Use your acquired digital skills to build the project (e.g., a comprehensive dashboard, report, or workflow automation)",
+            "estimated_time": "20 hours",
+            "resource_type": "project",
+            "resource_title": "Project Execution Workshop",
+            "resource_url": "https://www.pmi.org/learning/library"
+        },
+        {
+            "task_title": "Review & Present Outcomes",
+            "description": "Prepare a presentation summarizing the project challenges, solutions, and final impact",
+            "estimated_time": "5 hours",
+            "resource_type": "video",
+            "resource_title": "TED: How to give a great presentation",
+            "resource_url": "https://www.ted.com/playlists/226/before_public_speaking"
+        }
+    ],
+    "milestone_5": [
+        {
+            "task_title": "Identify Industry Specialization",
+            "description": "Research growing tech sectors (e.g., Cybersecurity, Cloud, UI/UX, or AI) and choose a specialization track",
+            "estimated_time": "8 hours",
+            "resource_type": "documentation",
+            "resource_title": "CompTIA: Tech Career Pathways",
+            "resource_url": "https://www.comptia.org/content/it-careers-path"
+        },
+        {
+            "task_title": "Complete Specialized Certification",
+            "description": "Enroll in and complete a recognized foundational certification in your chosen specialization (e.g., AWS Cloud Practitioner, CompTIA Security+)",
+            "estimated_time": "40 hours",
+            "resource_type": "course",
+            "resource_title": "Coursera/edX Professional Certificates",
+            "resource_url": "https://www.coursera.org/professional-certificates"
+        },
+        {
+            "task_title": "Learn Industry-Specific Tools",
+            "description": "Master 2-3 standard software tools used daily in your chosen specialization",
+            "estimated_time": "15 hours",
+            "resource_type": "practice",
+            "resource_title": "Software Tool Tutorials (YouTube)",
+            "resource_url": "https://www.youtube.com/"
+        }
+    ],
+    "milestone_6": [
+        {
+            "task_title": "Design Advanced Portfolio Architecture",
+            "description": "Structure a professional portfolio that clearly communicates your specialized skills and project outcomes",
+            "estimated_time": "6 hours",
+            "resource_type": "project",
+            "resource_title": "Canva: Portfolio Design Templates",
+            "resource_url": "https://www.canva.com/portfolios/templates/"
+        },
+        {
+            "task_title": "Develop 3 Capstone Projects",
+            "description": "Build three complex, industry-relevant projects that demonstrate advanced problem solving in your specialization",
+            "estimated_time": "45 hours",
+            "resource_type": "project",
+            "resource_title": "GitHub: Awesome Project Ideas",
+            "resource_url": "https://github.com/tastejs/awesome-app-ideas"
+        },
+        {
+            "task_title": "Document & Host Portfolio",
+            "description": "Write detailed case studies for each project and host them on a personal website or platform like Behance/GitHub",
+            "estimated_time": "10 hours",
+            "resource_type": "documentation",
+            "resource_title": "Notion: Portfolio Builder",
+            "resource_url": "https://www.notion.so/help/guides/create-a-portfolio"
+        }
+    ],
+    "milestone_7": [
+        {
+            "task_title": "Study Leadership Principles",
+            "description": "Read foundational books on leadership, emotional intelligence, and team management",
+            "estimated_time": "15 hours",
+            "resource_type": "course",
+            "resource_title": "HBR: Essential Leadership Skills",
+            "resource_url": "https://hbr.org/topic/subject/leadership"
+        },
+        {
+            "task_title": "Develop Mentoring Skills",
+            "description": "Learn active listening, constructive feedback, and how to guide junior peers effectively",
+            "estimated_time": "8 hours",
+            "resource_type": "video",
+            "resource_title": "Simon Sinek on Leadership & Mentorship",
+            "resource_url": "https://simonsinek.com/"
+        },
+        {
+            "task_title": "Lead a Community Initiative",
+            "description": "Organize a study group, host a workshop, or lead a small volunteer project to practice leadership",
+            "estimated_time": "20 hours",
+            "resource_type": "project",
+            "resource_title": "Meetup: Community Organizing",
+            "resource_url": "https://www.meetup.com/"
+        }
+    ],
+    "milestone_8": [
+        {
+            "task_title": "Optimize Professional Profiles",
+            "description": "Update LinkedIn, GitHub, and personal website to reflect your specialized skills and leadership experience",
+            "estimated_time": "5 hours",
+            "resource_type": "documentation",
+            "resource_title": "LinkedIn Learning: Profile Optimization",
+            "resource_url": "https://www.linkedin.com/learning/"
+        },
+        {
+            "task_title": "Engage in Tech Communities",
+            "description": "Join Discord servers, Slack groups, and subreddits related to your field. Participate in discussions weekly",
+            "estimated_time": "10 hours",
+            "resource_type": "practice",
+            "resource_title": "Tech Community Directories",
+            "resource_url": "https://github.com/mhagemann/awesome-discord-communities"
+        },
+        {
+            "task_title": "Publish Thought Leadership Content",
+            "description": "Write 2 articles or create a presentation on a technical topic you have mastered",
+            "estimated_time": "12 hours",
+            "resource_type": "project",
+            "resource_title": "Medium/Dev.to Publishing",
+            "resource_url": "https://dev.to/"
+        }
+    ],
+    "milestone_9": [
+        {
+            "task_title": "Resume & Cover Letter Refinement",
+            "description": "Tailor your resume for specific target roles using keywords from job descriptions and highlighting your portfolio",
+            "estimated_time": "8 hours",
+            "resource_type": "documentation",
+            "resource_title": "Teal: AI Resume Builder",
+            "resource_url": "https://www.tealhq.com/"
+        },
+        {
+            "task_title": "Interview Preparation & Mock Interviews",
+            "description": "Practice behavioral (STAR method) and technical interview questions with peers or using AI tools",
+            "estimated_time": "20 hours",
+            "resource_type": "practice",
+            "resource_title": "Pramp: Peer Mock Interviews",
+            "resource_url": "https://www.pramp.com/"
+        },
+        {
+            "task_title": "Execute Application Strategy",
+            "description": "Apply to 30 targeted positions, reach out to recruiters on LinkedIn, and track your funnel conversion rates",
+            "estimated_time": "15 hours",
+            "resource_type": "project",
+            "resource_title": "Huntr: Job Search Tracker",
+            "resource_url": "https://huntr.co/"
+        }
+    ]
 }
 
 

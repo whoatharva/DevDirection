@@ -82,6 +82,13 @@ async function apiGetCustomRoadmaps(userId) {
   return apiFetch(`/roadmap/custom/user/${userId}`);
 }
 
+async function apiRoadmapChat(userId, message) {
+  return apiFetch('/roadmap/chat', {
+    method: 'POST',
+    body: JSON.stringify({ user_id: userId, message: message }),
+  });
+}
+
 // ─── Users ─────────────────────────────────────────────────────────────────────
 
 async function apiGetUsers() {

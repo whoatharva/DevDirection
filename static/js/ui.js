@@ -14,7 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Add active to clicked
       tab.classList.add('active');
       const targetId = `tab-${tab.getAttribute('data-tab')}`;
-      document.getElementById(targetId).style.display = 'block';
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.style.display = 'block';
+      } else {
+        const errorPanel = document.getElementById('tab-404');
+        if (errorPanel) errorPanel.style.display = 'block';
+      }
 
       // Close mobile menu if open
       const navLinks = document.querySelector('.nav-links');

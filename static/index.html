@@ -5,7 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your AI Career Roadmap | DevDirection</title>
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css?v=5">
+  <style>
+    @media print {
+      .nav { display: none !important; }
+      body { background: white !important; color: black !important; }
+    }
+  </style>
 </head>
 
 <body>
@@ -14,7 +23,7 @@
     <div style="font-weight: 600; color: white; margin-right: 32px; font-size: 18px;">DevDirection</div>
     <div class="nav-links">
       <a href="#" class="nav-tab active" data-tab="roadmap">Roadmap</a>
-      <a href="#" class="nav-tab" data-tab="quiz">Quiz</a>
+      <a href="#" class="nav-tab" data-tab="quiz">Skill Quiz</a>
       <a href="#" class="nav-tab" data-tab="custom">Custom</a>
       <a href="#" class="nav-tab" data-tab="story">Our Story</a>
     </div>
@@ -26,15 +35,35 @@
     <!-- Tab: Roadmap -->
     <section id="tab-roadmap" class="tab-panel">
       <div id="roadmap-selection">
-        <div class="page-header">
-          <h1>DevDirection Roadmaps</h1>
-          <p>Select a profile to generate a personalized career roadmap powered by LangGraph.</p>
+        <div class="hero-section" style="text-align: center; padding: 80px 24px; position: relative; overflow: hidden; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 48px; background: radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15), transparent 70%); background-color: var(--bg-card);">
+          
+          <!-- Abstract tech badges to fill empty space professionally -->
+          <div style="position: absolute; left: 6%; top: 25%; opacity: 0.9; transform: rotate(-5deg); pointer-events: none;">
+            <span class="tag" style="font-size: 14px; padding: 8px 16px; background: rgba(99, 102, 241, 0.1); color: #818cf8; border-color: rgba(99, 102, 241, 0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Machine Learning</span>
+          </div>
+          <div style="position: absolute; left: 12%; bottom: 25%; opacity: 0.7; transform: rotate(8deg); pointer-events: none;">
+            <span class="tag" style="font-size: 13px; padding: 6px 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">React.js</span>
+          </div>
+          <div style="position: absolute; right: 8%; top: 30%; opacity: 0.9; transform: rotate(6deg); pointer-events: none;">
+            <span class="tag" style="font-size: 14px; padding: 8px 16px; background: rgba(16, 185, 129, 0.1); color: #34d399; border-color: rgba(16, 185, 129, 0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">System Design</span>
+          </div>
+          <div style="position: absolute; right: 14%; bottom: 20%; opacity: 0.6; transform: rotate(-6deg); pointer-events: none;">
+            <span class="tag" style="font-size: 13px; padding: 6px 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Data Structures</span>
+          </div>
+
+          <h1 style="font-size: 3.8rem; margin-bottom: 24px; max-width: 800px; margin-left: auto; margin-right: auto; position: relative; z-index: 1;">Your AI-Powered <span style="color: var(--accent);">Career Roadmap.</span></h1>
+          <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px auto; position: relative; z-index: 1; line-height: 1.6;">Personalized guidance to help you master the skills you need for your dream role.</p>
+          <button class="btn btn-primary btn-hero" style="font-size: 1.1rem; padding: 14px 32px; position: relative; z-index: 1;" onclick="document.querySelector('.nav-tab[data-tab=\'quiz\']').click()">Start Assessment</button>
+        </div>
+        
+        <div class="page-header" style="border:none; padding-top: 0;">
+          <h2>Or explore sample roadmaps:</h2>
         </div>
 
         <!-- Error / Loading placeholders -->
         <div id="roadmap-error"></div>
 
-        <div class="milestone-grid" id="user-cards-container" class="mb-32">
+        <div class="milestone-grid" id="user-cards-container" style="margin-bottom: 32px;">
           <!-- Hardcoded test users for immediate click -->
           <div class="card dummy-user-card" onclick="generateRoadmapForUser('u1')">
             <h3>👨‍💻 Amit — Data Science</h3>
@@ -71,7 +100,10 @@
           <h1>Career Assessment</h1>
           <p>Discover your strengths and get personalized recommendations.</p>
         </div>
-        <button class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
+        <div style="margin-bottom: 32px;">
+          <p style="color: var(--text-muted); margin-bottom: 24px;">This assessment takes about 3 minutes. Your answers help our AI tailor a precise roadmap for your career goals.</p>
+          <button class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
+        </div>
       </div>
 
       <div id="quiz-content" style="display:none;">
@@ -86,7 +118,7 @@
         <p>Manually define your career path parameters.</p>
       </div>
 
-      <div class="card custom-roadmap-form">
+      <div class="card custom-roadmap-form" style="max-width: 600px; margin: 0 auto 64px auto;">
         <div class="error-banner" style="display:none;" id="custom-error"></div>
 
         <div class="form-group">
@@ -116,7 +148,7 @@
           <label class="form-label">Interests (comma separated)</label>
           <input type="text" id="cr-interests" class="form-control" placeholder="Computer Vision, NLP">
         </div>
-        <div class="form-group mb-24">
+        <div class="form-group" style="margin-bottom: 24px;">
           <label class="form-label">Time Commitment</label>
           <select id="cr-time" class="form-control">
             <option value="5 hours per week">5 hours per week</option>
@@ -125,7 +157,7 @@
             <option value="full time">Full Time (40+ hours)</option>
           </select>
         </div>
-        <button class="btn btn-primary btn-block" onclick="generateCustomRoadmap()">Generate Roadmap</button>
+        <button class="btn btn-primary" style="width: 100%;" onclick="generateCustomRoadmap()">Generate Roadmap</button>
       </div>
     </section>
 
@@ -161,10 +193,9 @@
 
       <!-- One-line mission -->
       <div
-        style="background-color: #EEF2FF; padding: 32px; text-align: center; border-radius: 8px; margin-bottom: 64px;">
-        <p style="font-size: 1.2rem; color: #1A1A1A; margin: 0 0 8px 0; font-weight: 500;">"DevDirection turns confusion
+        style="background-color: rgba(99, 102, 241, 0.1); padding: 32px; text-align: center; border-radius: 8px; margin-bottom: 64px; border: 1px solid rgba(99, 102, 241, 0.2);">
+        <p style="font-size: 1.2rem; color: var(--text); margin: 0 0 8px 0; font-weight: 500;">"DevDirection turns confusion
           into clarity one milestone at a time."</p>
-
       </div>
 
       <!-- Closing -->
@@ -178,22 +209,81 @@
   </main>
 
   <footer class="container">
-    <div>© 2026 DevDirection<br><span style="font-size: 0.8em; color: var(--text-muted);">by DevDirection</span></div>
-    <div>Powered by LangGraph</div>
+    <div style="color: var(--text); font-weight: 500;">© 2026 DevDirection | Roadmap Engine v1.2</div>
+    <div style="color: var(--text-muted); font-size: 0.95em; font-weight: 500;">AI-Powered Career Guidance</div>
   </footer>
 
-  <div id="ai-loading" class="ai-loading-overlay" style="display:none;">
-    <div class="thinking-dots"><span></span><span></span><span></span></div>
-    <div class="loading-message">Analysing your profile...</div>
-    <div class="text-muted" style="color:var(--text-muted);">Crafting your personalized roadmap</div>
+  <div id="ai-loading" class="ai-loading-overlay" style="display:none; background-color: rgba(10,10,10,0.9);">
+    <div style="width: 600px; max-width: 90%; background: #000; border: 1px solid #333; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+      <div style="background: #111; padding: 10px 16px; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 8px;">
+        <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
+        <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
+        <div style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
+        <span style="margin-left: 10px; color: #888; font-family: monospace; font-size: 14px;">LangGraph Agent Execution</span>
+      </div>
+      <div id="terminal-output" style="padding: 24px; font-family: 'Courier New', Courier, monospace; font-size: 14px; color: #0f0; min-height: 200px; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+        <!-- Terminal lines injected here -->
+      </div>
+    </div>
   </div>
 
+  <!-- Human In The Loop Modal -->
+  <div id="hitl-modal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center;">
+    <div style="background: var(--bg-card); padding: 32px; border-radius: 12px; max-width: 500px; text-align: center; border: 1px solid var(--border);">
+      <h2 style="margin-bottom: 16px;">Curriculum Drafted!</h2>
+      <p style="color: var(--text-muted); margin-bottom: 24px;">The CurriculumAgent has proposed a phase structure. Approve it to let the ResourceAgent fetch learning materials, or reject to regenerate.</p>
+      <div style="display: flex; gap: 16px; justify-content: center;">
+        <button id="hitl-regenerate" class="btn btn-secondary">Regenerate</button>
+        <button id="hitl-approve" class="btn btn-primary">Approve Curriculum</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contextual Chatbot Widget -->
+  <div id="chatbot-widget" style="position: fixed; bottom: 30px; right: 30px; z-index: 10000;">
+    <div id="chatbot-window" class="glass-panel" style="display: none; width: 380px; height: 500px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; margin-bottom: 16px;">
+      <div style="padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981;"></div>
+          <span style="font-weight: 700; letter-spacing: 0.02em; font-size: 0.95rem;">Mentor AI <span style="font-weight: 400; opacity: 0.6; font-size: 0.8rem;">• Core</span></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <label style="font-size: 11px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.05em;">
+            <input type="checkbox" id="voice-toggle" style="accent-color: var(--accent);"> Voice
+          </label>
+          <button id="close-chatbot" style="background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; padding: 0; line-height: 1;">×</button>
+        </div>
+      </div>
+      <div id="chatbot-messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;">
+        <div class="chat-bubble-ai">Greetings! I am the localized Mentor AI instance for your Neural Matrix. How can I assist your trajectory today?</div>
+      </div>
+      <div style="padding: 16px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 10px; align-items: center;">
+        <button id="chatbot-mic" title="Voice Input" style="background: rgba(255,255,255,0.05); border: none; color: var(--text-muted); cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+        </button>
+        <input type="text" id="chatbot-input" placeholder="Ask Mentor AI..." style="flex: 1; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 14px; color: var(--text); font-size: 14px; outline: none;">
+        <button id="chatbot-send" class="btn btn-primary" style="padding: 10px 20px; font-weight: 600; box-shadow: 0 4px 15px rgba(99,102,241,0.3);">Send</button>
+      </div>
+    </div>
+    <button id="chatbot-toggle" class="btn btn-primary" style="width: 64px; height: 64px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 8px 25px rgba(99,102,241,0.5); border: none;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </button>
+  </div>
+
+  <section id="tab-404" class="tab-panel" style="display:none; text-align: center; padding-top: 100px;">
+    <h1 style="font-size: 6rem; color: var(--accent); margin-bottom: 24px;">404</h1>
+    <h2 style="margin-bottom: 24px;">System Offline - Page Not Found</h2>
+    <p style="color: var(--text-muted); margin-bottom: 32px;">The endpoint you are trying to access does not exist in the current ecosystem.</p>
+    <button class="btn btn-primary" onclick="document.querySelector('.nav-tab[data-tab=\'roadmap\']').click()">Return to Dashboard</button>
+  </section>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/roadmap-renderer.js"></script>
-  <script src="js/roadmap.js"></script>
-  <script src="js/quiz.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/api.js?v=105"></script>
+  <script src="js/ui.js?v=105"></script>
+  <script src="js/roadmap_engine.js?v=105"></script>
+  <script src="js/roadmap_core.js?v=105"></script>
+  <script src="js/quiz.js?v=105"></script>
 
 
 </body>

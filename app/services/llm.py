@@ -4,11 +4,14 @@ from typing import Dict, List, Optional, Any, TypedDict
 from datetime import datetime
 
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import AzureChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langgraph.graph import StateGraph, START, END
 
 from app.models import UserProfile, RoadmapResponse, RoadmapPhase, Milestone, SubTask, SkillGap, SkillLevel, MilestoneType
+
+from langgraph.checkpoint.memory import MemorySaver
 
 # ─── 1A. STATE DEFINITION ───────────────────────────────
 class RoadmapState(TypedDict):
@@ -19,18 +22,58 @@ class RoadmapState(TypedDict):
     skill_gaps_raw: list
     roadmap_response: dict
     error: Optional[str]
+    critique_feedback: Optional[str]
+    score: int
     retry_count: int
 
 # ─── HELPER FOR LLM GENERATION ───────────────────────────
 def _invoke_llm(system_prompt: str, user_prompt: str) -> dict:
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.3)
+    # Try Azure OpenAI first (High Quota)
+    try:
+        azure_llm = AzureChatOpenAI(
+            azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-5-chat-1"),
+            api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2025-01-01-preview"),
+            temperature=0.3
+        )
+        parser = JsonOutputParser()
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", system_prompt),
+            ("human", "{input}")
+        ])
+        chain = prompt | azure_llm | parser
+        return chain.invoke({"input": user_prompt})
+    except Exception as az_e:
+        print(f"Azure OpenAI failed: {az_e}. Falling back to Gemini...")
+        
+    # Fallback to Gemini
+    models_to_try = [
+        "gemini-1.5-flash", 
+        "gemini-1.5-flash-latest", 
+        "gemini-1.5-flash-8b",
+        "gemini-1.5-pro", 
+        "gemini-pro"
+    ]
     parser = JsonOutputParser()
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
         ("human", "{input}")
     ])
-    chain = prompt | llm | parser
-    return chain.invoke({"input": user_prompt})
+    
+    last_error = None
+    for model_name in models_to_try:
+        try:
+            llm = ChatGoogleGenerativeAI(model=model_name, temperature=0.3)
+            chain = prompt | llm | parser
+            return chain.invoke({"input": user_prompt})
+        except Exception as e:
+            last_error = e
+            err_msg = str(e)
+            if any(x in err_msg for x in ["404", "NotFound", "429", "ResourceExhausted", "quota"]):
+                print(f"Model {model_name} failed. Trying next...")
+                continue 
+            raise 
+    
+    raise last_error 
 
 # ─── 1B. GRAPH NODES ─────────────────────────────────────
 
@@ -75,7 +118,7 @@ def generate_phases(state: RoadmapState) -> RoadmapState:
         analysis = state.get("skill_analysis", {})
         gaps = state.get("skill_gaps_raw", [])
         
-        system_prompt = """You are a career advisor building a detailed roadmap.
+        system_prompt = """You are a Curriculum Agent building a detailed roadmap skeleton.
 Return a JSON array of phase objects.
 Each phase MUST have exactly:
 - name (string)
@@ -93,51 +136,82 @@ Each milestone MUST have exactly:
 - estimated_duration (string)
 - prerequisites (list of milestone id strings)
 - skills_developed (list of strings)
-- resources (list of objects with {title, url} - url MUST be a search term or safe URL)
 - difficulty ("beginner" | "intermediate" | "advanced" | "expert")
 - priority (integer 1-3)
 - dependencies (list of milestone id strings)
-- sub_tasks (list of 2-3 sub_task objects)
-
-Each sub_task MUST have exactly:
-- task_title (string)
-- description (string)
-- estimated_time (string)
-- resource_type ("course" | "video" | "documentation" | "project" | "practice")
-- resource_title (string)
-- resource_url (string)
 """
         user_prompt = (f"User: {json.dumps(user_prof)}\n"
                        f"Analysis: {json.dumps(analysis)}\n"
                        f"Gaps: {json.dumps(gaps)}")
+                       
+        critique = state.get("critique_feedback")
+        if critique and state.get("phases_raw"):
+            previous_phases = json.dumps(state.get("phases_raw"))
+            user_prompt += f"\n\nPREVIOUS GENERATION THAT FAILED:\n{previous_phases}\n\nCRITIQUE TO IMPROVE UPON: {critique}"
+            
         result = _invoke_llm(system_prompt, user_prompt)
         state["phases_raw"] = result if isinstance(result, list) else []
     except Exception as e:
         state["error"] = f"generate_phases failed: {str(e)}"
     return state
 
+def critique_roadmap(state: RoadmapState) -> RoadmapState:
+    try:
+        phases = state.get("phases_raw", [])
+        if not phases:
+            state["score"] = 0
+            state["critique_feedback"] = "No phases generated."
+            return state
+
+        system_prompt = """You are an expert career roadmap evaluator. 
+Score the provided roadmap phases from 1-10 based on logical progression, completeness, and realism.
+Return JSON exactly like:
+{{
+  "score": 8,
+  "feedback": "Missing real-world project in Phase 2."
+}}"""
+        user_prompt = json.dumps(phases)
+        result = _invoke_llm(system_prompt, user_prompt)
+        
+        state["score"] = int(result.get("score", 0))
+        state["critique_feedback"] = result.get("feedback", "")
+        
+        # If score is failing, increment retry count here in the node, not the edge!
+        if state["score"] < 8:
+            state["retry_count"] = state.get("retry_count", 0) + 1
+            
+    except Exception as e:
+        state["error"] = f"critique_roadmap failed: {str(e)}"
+        state["score"] = 10 # fail open
+    return state
+
 def enrich_resources(state: RoadmapState) -> RoadmapState:
     try:
         phases = state.get("phases_raw", [])
-        # We process phases directly instead of an LLM call for time/cost unless requested.
-        # However, the instruction asks to use LLM to enrich milestones with < 2 sub_tasks.
         
-        needs_enrichment = []
+        all_milestones = []
         for p_idx, p in enumerate(phases):
             for m_idx, m in enumerate(p.get("milestones", [])):
-                if len(m.get("sub_tasks", [])) < 2:
-                    needs_enrichment.append((p_idx, m_idx, m))
-                    
-        if needs_enrichment:
-            system_prompt = """For the provided milestones, generate additional sub_tasks with real, well-known resources (freeCodeCamp, NPTEL, Coursera, official docs, YouTube channels).
-Return a JSON object where keys are milestone IDs and values are lists of fully formed sub_task objects (same format as original sub_tasks)."""
-            user_prompt = json.dumps([{"id": x[2].get("id"), "title": x[2].get("title")} for x in needs_enrichment])
+                all_milestones.append((p_idx, m_idx, m))
+                
+        if all_milestones:
+            system_prompt = """You are a Resource Generation Agent. For the provided milestones, generate granular sub_tasks with real, well-known resources (freeCodeCamp, NPTEL, Coursera, official docs, YouTube channels).
+Return a JSON object where keys are milestone IDs and values are lists of 2-3 sub_task objects.
+Each sub_task MUST have exactly:
+- task_title (string)
+- description (string)
+- estimated_time (string)
+- resource_type ("course" | "video" | "documentation" | "project" | "practice")
+- resource_title (string)
+- resource_url (string)"""
+            user_prompt = json.dumps([{"id": x[2].get("id"), "title": x[2].get("title")} for x in all_milestones])
             enrich_result = _invoke_llm(system_prompt, user_prompt)
             
-            for p_idx, m_idx, m in needs_enrichment:
+            for p_idx, m_idx, m in all_milestones:
                 m_id = str(m.get("id", ""))
                 if m_id in enrich_result:
-                    phases[p_idx]["milestones"][m_idx]["sub_tasks"].extend(enrich_result[m_id])
+                    m["sub_tasks"] = enrich_result[m_id]
+                    phases[p_idx]["milestones"][m_idx] = m
                     
         state["phases_raw"] = phases
     except Exception as e:
@@ -333,56 +407,47 @@ def assemble_response(state: RoadmapState) -> RoadmapState:
             for m in p.get("milestones", []):
                 sub_tasks_out = []
                 for st in m.get("sub_tasks", []):
-                    try:
-                        sub_tasks_out.append(SubTask(
-                            task_title=st.get("task_title", "Task"),
-                            description=st.get("description", ""),
-                            estimated_time=st.get("estimated_time", "Unknown"),
-                            resource_type=st.get("resource_type", "documentation"),
-                            resource_title=st.get("resource_title", ""),
-                            resource_url=st.get("resource_url", "")
-                        ))
-                    except Exception:
-                        pass
-                
-                try:
-                    diff_val = str(m.get("difficulty", "beginner")).lower()
-                    if diff_val not in ["beginner", "intermediate", "advanced", "expert"]:
-                        diff_val = "beginner"
-                    
-                    type_val = str(m.get("type", "learning")).lower()
-                    if type_val not in ["learning", "project", "certification", "experience", "networking", "application"]:
-                        type_val = "learning"
-                        
-                    milestones_out.append(Milestone(
-                        id=str(m.get("id", "m1")),
-                        title=str(m.get("title", "Milestone")),
-                        description=str(m.get("description", "")),
-                        type=type_val,
-                        phase=str(m.get("phase", p.get("name", ""))),
-                        estimated_duration=str(m.get("estimated_duration", "1 week")),
-                        prerequisites=m.get("prerequisites", []),
-                        skills_developed=m.get("skills_developed", []),
-                        resources=m.get("resources", []),
-                        sub_tasks=sub_tasks_out,
-                        difficulty=diff_val,
-                        priority=int(m.get("priority", 1)),
-                        dependencies=m.get("dependencies", [])
+                    sub_tasks_out.append(SubTask(
+                        task_title=st.get("task_title", "Task"),
+                        description=st.get("description", "Task description"),
+                        estimated_time=st.get("estimated_time", "Unknown"),
+                        resource_type=st.get("resource_type", "documentation"),
+                        resource_title=st.get("resource_title", "Resource"),
+                        resource_url=st.get("resource_url", "#")
                     ))
-                    total_milestones += 1
-                except Exception:
-                    pass
-            
-            try:
-                phases_out.append(RoadmapPhase(
-                    name=str(p.get("name", "Phase")),
-                    description=str(p.get("description", "")),
-                    duration=str(p.get("duration", "")),
-                    milestones=milestones_out,
-                    objectives=p.get("objectives", [])
+                
+                diff_val = str(m.get("difficulty", "beginner")).lower()
+                if diff_val not in ["beginner", "intermediate", "advanced", "expert"]:
+                    diff_val = "beginner"
+                
+                type_val = str(m.get("type", "learning")).lower()
+                if type_val not in ["learning", "project", "certification", "experience", "networking", "application"]:
+                    type_val = "learning"
+                    
+                milestones_out.append(Milestone(
+                    id=str(m.get("id", "m1")),
+                    title=str(m.get("title", "Milestone")),
+                    description=str(m.get("description", "Milestone description")),
+                    type=type_val,
+                    phase=str(m.get("phase", p.get("name", "Phase"))),
+                    estimated_duration=str(m.get("estimated_duration", "1 week")),
+                    prerequisites=m.get("prerequisites", []),
+                    skills_developed=m.get("skills_developed", []),
+                    resources=m.get("resources", []),
+                    sub_tasks=sub_tasks_out,
+                    difficulty=diff_val,
+                    priority=int(m.get("priority", 1) or 1),
+                    dependencies=m.get("dependencies", [])
                 ))
-            except Exception:
-                pass
+                total_milestones += 1
+            
+            phases_out.append(RoadmapPhase(
+                name=str(p.get("name", "Phase")),
+                description=str(p.get("description", "Phase description")),
+                duration=str(p.get("duration", "4 weeks")),
+                milestones=milestones_out,
+                objectives=p.get("objectives", [])
+            ))
 
         # Build skill gaps
         gaps_out = []
@@ -455,7 +520,7 @@ def assemble_response(state: RoadmapState) -> RoadmapState:
         
         # Summary
         summary = {
-            "title": f"{target_focus} Roadmap",
+            "title": f"{state.get('career_focus', 'Career')} Roadmap",
             "description": "Your customized career path.",
             "total_duration": f"{len(phases_out) * 4} weeks approx",
             "phases_count": len(phases_out),
@@ -482,6 +547,7 @@ def build_graph() -> StateGraph:
     workflow.add_node("analyze_profile", analyze_profile)
     workflow.add_node("identify_skill_gaps", identify_skill_gaps)
     workflow.add_node("generate_phases", generate_phases)
+    workflow.add_node("critique_roadmap", critique_roadmap)
     workflow.add_node("enrich_resources", enrich_resources)
     workflow.add_node("assemble_response", assemble_response)
     workflow.add_node("fallback_node", fallback_node)
@@ -496,9 +562,16 @@ def build_graph() -> StateGraph:
         return "fallback_node" if state.get("error") else "generate_phases"
     workflow.add_conditional_edges("identify_skill_gaps", condition_gaps)
     
-    def condition_phases(state: RoadmapState):
-        return "fallback_node" if state.get("error") else "enrich_resources"
-    workflow.add_conditional_edges("generate_phases", condition_phases)
+    workflow.add_edge("generate_phases", "critique_roadmap")
+
+    def route_critique(state: RoadmapState):
+        if state.get("error"):
+            return "fallback_node"
+        # Since retry_count was incremented in critique_roadmap, we just check its current value
+        if state.get("score", 0) < 8 and state.get("retry_count", 0) <= 2:
+            return "generate_phases"
+        return "enrich_resources"
+    workflow.add_conditional_edges("critique_roadmap", route_critique)
 
     def condition_enrich(state: RoadmapState):
         return "assemble_response"
@@ -508,7 +581,8 @@ def build_graph() -> StateGraph:
     workflow.add_edge("fallback_node", "assemble_response")
     workflow.add_edge("assemble_response", END)
     
-    return workflow.compile()
+    memory = MemorySaver()
+    return workflow.compile(checkpointer=memory, interrupt_before=["assemble_response"])
 
 graph = build_graph()
 
@@ -532,8 +606,20 @@ def generate_roadmap(user: UserProfile, careers_map: dict) -> RoadmapResponse:
         "retry_count": 0
     }
     
+    import uuid
+    session_id = f"{user.user_id}_{uuid.uuid4().hex[:8]}"
+    config = {"configurable": {"thread_id": session_id}}
+    
     try:
-        final_state = graph.invoke(initial_state)
+        # Run graph until interrupt or end
+        final_state = graph.invoke(initial_state, config=config)
+        
+        # Human-in-the-loop pause handling: If it stopped before assemble_response, resume it.
+        # In a real app, you'd wait for user input here before resuming.
+        state_snapshot = graph.get_state(config)
+        if state_snapshot.next:
+            final_state = graph.invoke(None, config=config)
+
         # If assemble_response failed or error happened at the end
         if final_state.get("error"):
             raise ValueError(final_state["error"])
@@ -545,3 +631,136 @@ def generate_roadmap(user: UserProfile, careers_map: dict) -> RoadmapResponse:
         state = fallback_node(initial_state)
         state = assemble_response(state)
         return RoadmapResponse(**state["roadmap_response"])
+
+# ─── 1E. STREAMING & RESUME ENTRY POINTS (SSE) ──────────────────
+def generate_roadmap_stream(user: UserProfile):
+    import json
+    import uuid
+    import os
+    if "GOOGLE_API_KEY" not in os.environ:
+        yield f"data: {json.dumps({'event': 'error', 'message': 'GOOGLE_API_KEY not found.'})}\n\n"
+        return
+
+    initial_state: dict = {
+        "user_profile": user.model_dump(),
+        "career_focus": "",
+        "skill_analysis": {},
+        "phases_raw": [],
+        "skill_gaps_raw": [],
+        "roadmap_response": {},
+        "error": None,
+        "retry_count": 0
+    }
+    
+    session_id = f"{user.user_id}_{uuid.uuid4().hex[:8]}"
+    config = {"configurable": {"thread_id": session_id}}
+    
+    try:
+        for chunk in graph.stream(initial_state, config=config, stream_mode="updates"):
+            # Handle newer langgraph versions that might yield (node_name, state_dict) tuples directly
+            if isinstance(chunk, tuple) and len(chunk) == 2:
+                chunk = {chunk[0]: chunk[1]}
+                
+            for node_name, state_update in chunk.items():
+                if not isinstance(state_update, dict):
+                    if isinstance(state_update, tuple) and len(state_update) > 0 and isinstance(state_update[0], dict):
+                        state_update = state_update[0]
+                    else:
+                        continue # Safely skip unparseable state chunks to prevent stream crash
+                        
+                event_data = {
+                    "node": node_name,
+                    "score": state_update.get("score", 0),
+                    "retry_count": state_update.get("retry_count", 0),
+                    "error": state_update.get("error", None)
+                }
+                yield f"data: {json.dumps(event_data)}\n\n"
+        
+        # When graph stops (either due to interrupt or end)
+        state_snapshot = graph.get_state(config)
+        if state_snapshot.next:
+            # It paused at human-in-the-loop
+            yield f"data: {json.dumps({'node': '__paused__', 'thread_id': session_id, 'phases_raw': state_snapshot.values.get('phases_raw', [])})}\n\n"
+        else:
+            # Finished normally
+            yield f"data: {json.dumps({'node': '__end__', 'roadmap_response': state_snapshot.values.get('roadmap_response', {})})}\n\n"
+
+    except Exception as e:
+        yield f"data: {json.dumps({'event': 'error', 'message': str(e)})}\n\n"
+
+def resume_roadmap_stream(thread_id: str):
+    import json
+    config = {"configurable": {"thread_id": thread_id}}
+    try:
+        for chunk in graph.stream(None, config=config):
+            for node_name, state_update in chunk.items():
+                event_data = {
+                    "node": node_name,
+                    "score": state_update.get("score", 0),
+                    "retry_count": state_update.get("retry_count", 0),
+                    "error": state_update.get("error", None)
+                }
+                yield f"data: {json.dumps(event_data)}\n\n"
+                
+        state_snapshot = graph.get_state(config)
+        yield f"data: {json.dumps({'node': '__end__', 'roadmap_response': state_snapshot.values.get('roadmap_response', {})})}\n\n"
+    except Exception as e:
+        yield f"data: {json.dumps({'event': 'error', 'message': str(e)})}\n\n"
+
+def answer_roadmap_question(user_id: str, question: str) -> str:
+    """Answers a user's question about their generated roadmap using a basic Gemini chain."""
+    try:
+        from langchain_openai import AzureChatOpenAI
+        from langchain_core.prompts import ChatPromptTemplate
+        from langchain_core.output_parsers import StrOutputParser
+        
+        system_prompt = """You are 'Mentor AI', an expert career advisor. 
+You are currently helping a user understand a career roadmap that was just generated for them.
+Answer relevant questions about career, tech, and the roadmap concisely and warmly. 
+If a question is totally irrelevant (jokes, politics, etc.), politely steer the user back to their career path.
+Keep response under 4 sentences. Do NOT use markdown code blocks for the entire message."""
+        
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", system_prompt),
+            ("human", "{input}")
+        ])
+        parser = StrOutputParser()
+
+        # Try Azure first
+        try:
+            azure_llm = AzureChatOpenAI(
+                azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-5-chat-1"),
+                api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2025-01-01-preview"),
+                temperature=0.7
+            )
+            chain = prompt | azure_llm | parser
+            return chain.invoke({"input": question})
+        except Exception as az_e:
+            print(f"Chatbot Azure failed: {az_e}")
+
+        # Fallback to Gemini
+        models_to_try = [
+            "gemini-1.5-flash", 
+            "gemini-1.5-flash-latest", 
+            "gemini-1.5-pro"
+        ]
+        
+        last_error = None
+        for model_name in models_to_try:
+            try:
+                from langchain_google_genai import ChatGoogleGenerativeAI
+                llm = ChatGoogleGenerativeAI(model=model_name, temperature=0.7)
+                chain = prompt | llm | parser
+                return chain.invoke({"input": question})
+            except Exception as e:
+                last_error = e
+                err_msg = str(e)
+                if any(x in err_msg for x in ["404", "NotFound", "429", "ResourceExhausted", "quota"]):
+                    continue
+                raise
+                
+        if last_error:
+            raise last_error
+            
+    except Exception as e:
+        return f"I'm sorry, I'm having trouble connecting right now. ({str(e)})"

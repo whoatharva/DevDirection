@@ -33,10 +33,13 @@ def score_answers(answers: Dict[str, int]) -> Tuple[Dict[Stream, float], Stream,
 
     # No penalties; only positive additions
 
-    # Floor at 0
+    max_scores = { "Science": 9.0, "Commerce": 9.0, "Arts": 6.0, "Vocational": 6.0 }
+
+    # Floor at 0 and convert to percentages
     for st in scores:
         if scores[st] < 0:
             scores[st] = 0.0
+        scores[st] = (scores[st] / max_scores[st]) * 100.0 if max_scores[st] > 0 else 0.0
 
     top_stream: Stream = max(scores, key=scores.get)  # type: ignore
     subjects = SUGGESTED_SUBJECTS[top_stream]

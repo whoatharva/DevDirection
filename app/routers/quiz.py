@@ -27,11 +27,27 @@ def get_questions():
 def submit_quiz(payload: SubmitPayload):
     """Submit quiz answers and get results"""
     try:
-        # Calculate scores
-        scores = calculate_scores(payload.answers)
+        from app.services.scoring import score_answers
         
-        # Generate career recommendations
-        recommendations = generate_recommendations(scores)
+        # Convert payload.answers to Dict[str, int]
+        answers_dict = {}
+        for ans in payload.answers:
+            qid = ans.get("qid") if isinstance(ans, dict) else ans.qid
+            score = ans.get("score") if isinstance(ans, dict) else ans.score
+            answers_dict[qid] = int(score)
+            
+        scores, top_stream, suggested_subjects, rationale = score_answers(answers_dict)
+        
+        # Generate career recommendations based on top stream
+        recommendations = []
+        if top_stream == "Science":
+            recommendations.extend(["Software Engineer", "Data Scientist", "Research Scientist"])
+        elif top_stream == "Commerce":
+            recommendations.extend(["Business Analyst", "Financial Analyst", "Accountant"])
+        elif top_stream == "Arts":
+            recommendations.extend(["Content Creator", "HR Specialist", "Writer"])
+        elif top_stream == "Vocational":
+            recommendations.extend(["Technician", "Mechanic", "Electrician"])
         
         # Create attempt record
         attempt = Attempt(
@@ -47,82 +63,17 @@ def submit_quiz(payload: SubmitPayload):
         attempts_data.append(attempt.model_dump())
         save_json(ATTEMPTS_FILE, attempts_data)
         
-        # Determine top stream based on highest score
-        top_stream = max(scores.items(), key=lambda x: x[1])[0].title()
-        
-        # Generate suggested subjects based on scores with improved logic
-        suggested_subjects = []
-        
-        # Technical subjects (for high technical scores)
-        if scores["technical"] >= 20:
-            suggested_subjects.extend([
-                "Mathematics", "Physics", "Computer Science", "Engineering", 
-                "Information Technology", "Data Science", "Cybersecurity"
-            ])
-        elif scores["technical"] >= 15:
-            suggested_subjects.extend(["Mathematics", "Physics", "Computer Science"])
-        
-        # Creative subjects (for high creative scores)
-        if scores["creative"] >= 20:
-            suggested_subjects.extend([
-                "Fine Arts", "Graphic Design", "Digital Media", "Creative Writing",
-                "Music", "Drama", "Visual Arts", "Architecture"
-            ])
-        elif scores["creative"] >= 15:
-            suggested_subjects.extend(["Literature", "Arts", "Design"])
-        
-        # Analytical subjects (for high analytical scores)
-        if scores["analytical"] >= 20:
-            suggested_subjects.extend([
-                "Economics", "Statistics", "Business Analytics", "Finance",
-                "Accounting", "Research Methods", "Data Analysis"
-            ])
-        elif scores["analytical"] >= 15:
-            suggested_subjects.extend(["Economics", "Statistics", "Business Studies"])
-        
-        # Social subjects (for high social scores)
-        if scores["social"] >= 20:
-            suggested_subjects.extend([
-                "Psychology", "Sociology", "Communication Studies", "Social Work",
-                "Human Resources", "Public Relations", "Counseling"
-            ])
-        elif scores["social"] >= 15:
-            suggested_subjects.extend(["Psychology", "Sociology", "Communication"])
-        
-        # Leadership subjects (for high leadership scores)
-        if scores["leadership"] >= 20:
-            suggested_subjects.extend([
-                "Business Administration", "Management Studies", "Leadership Development",
-                "Public Administration", "Strategic Planning", "Organizational Behavior"
-            ])
-        elif scores["leadership"] >= 15:
-            suggested_subjects.extend(["Management", "Leadership Studies", "Public Administration"])
-        
-        # Add interdisciplinary subjects based on combinations
-        if scores["technical"] >= 15 and scores["analytical"] >= 15:
-            suggested_subjects.extend(["Data Science", "Business Intelligence", "Quantitative Analysis"])
-        
-        if scores["creative"] >= 15 and scores["social"] >= 15:
-            suggested_subjects.extend(["Digital Marketing", "User Experience Design", "Media Studies"])
-        
-        if scores["leadership"] >= 15 and scores["analytical"] >= 15:
-            suggested_subjects.extend(["Strategic Management", "Operations Research", "Project Management"])
-        
-        # Generate rationale
-        rationale = f"Based on your responses, you show strong aptitude in {top_stream.lower()} areas. Your scores indicate: "
-        rationale += f"Technical skills ({scores['technical']:.1f}%), Creative thinking ({scores['creative']:.1f}%), "
-        rationale += f"Analytical ability ({scores['analytical']:.1f}%), Social skills ({scores['social']:.1f}%), "
-        rationale += f"and Leadership potential ({scores['leadership']:.1f}%)."
-        
         # Generate AI advice
         ai_advice = {
-            "summary": f"Your profile suggests a strong inclination towards {top_stream.lower()} fields.",
+            "summary": f"Your profile suggests a strong inclination towards {top_stream} fields.",
             "next_steps": [
-                {"title": "Focus Areas", "detail": f"Concentrate on {top_stream.lower()} subjects and related activities"},
+                {"title": "Focus Areas", "detail": f"Concentrate on {top_stream} subjects and related activities"},
                 {"title": "Skill Development", "detail": "Engage in hands-on projects and practical applications"},
                 {"title": "Career Exploration", "detail": "Research careers in your top scoring areas"}
             ],
-            "exams_or_paths": ["JEE", "NEET", "Commerce Entrance", "Arts Stream"] if top_stream == "Technical" else ["Commerce Stream", "Arts Stream"]
+            "exams_or_paths": ["JEE", "NEET"] if top_stream == "Science" else (
+                              ["CA", "CS", "CMA"] if top_stream == "Commerce" else (
+                              ["UPSC", "BA"] if top_stream == "Arts" else ["ITI", "Diploma"]))
         }
         
         return {
@@ -130,7 +81,7 @@ def submit_quiz(payload: SubmitPayload):
             "scores": scores,
             "recommendations": recommendations,
             "top_stream": top_stream,
-            "suggested_subjects": list(set(suggested_subjects))[:5],  # Top 5 unique subjects
+            "suggested_subjects": suggested_subjects[:5],  # Top 5 unique subjects
             "rationale": rationale,
             "ai_advice": ai_advice,
             "message": "Quiz submitted successfully"
@@ -145,74 +96,4 @@ def get_user_attempts(user_id: str):
     """Get all quiz attempts for a user"""
     user_attempts = [a for a in attempts_data if a.get("user_id") == user_id]
     return [Attempt(**attempt) for attempt in user_attempts]
-
-
-def calculate_scores(answers: List[Dict[str, Any]]) -> Dict[str, float]:
-    """Calculate scores based on quiz answers"""
-    # Simple scoring logic - can be enhanced
-    scores = {
-        "technical": 0,
-        "creative": 0,
-        "analytical": 0,
-        "social": 0,
-        "leadership": 0,
-        "vocational": 0
-    }
-    
-    # Enhanced question-to-category mapping based on actual question content
-    question_mapping = {
-        "q1": ["technical", "analytical"],  # Problem-solving with technology
-        "q2": ["technical", "analytical"],  # Math and logic
-        "q3": ["creative", "analytical"],   # Design and creativity
-        "q4": ["creative", "social"],       # Arts and communication
-        "q5": ["vocational"],               # Data analysis -> vocational
-        "q6": ["vocational"],               # Strategic thinking -> vocational
-        "q7": ["social", "leadership"],     # Team work and leadership
-        "q8": ["social", "creative"],       # Communication and presentation
-        "q9": ["leadership", "social"],     # Leadership and management
-        "q10": ["leadership", "analytical"] # Decision making and planning
-    }
-    
-    for answer in answers:
-        qid = answer.get("qid") if isinstance(answer, dict) else answer.qid
-        score = answer.get("score") if isinstance(answer, dict) else answer.score
-        
-        # Apply score to all relevant categories for this question
-        if qid in question_mapping:
-            for category in question_mapping[qid]:
-                scores[category] += float(score)
-    
-    # Max score per category = number of questions mapped to it * 3
-    # Count how many questions map to each category
-    category_counts = {k: 0 for k in scores}
-    for cats in question_mapping.values():
-        for cat in cats:
-            if cat in category_counts:
-                category_counts[cat] += 1
-
-    for key in scores:
-        max_possible = category_counts[key] * 3
-        if max_possible > 0:
-            scores[key] = (scores[key] / max_possible) * 100
-        else:
-            scores[key] = 0
-    
-    return scores
-
-
-def generate_recommendations(scores: Dict[str, float]) -> List[str]:
-    """Generate career recommendations based on scores"""
-    recommendations = []
-    
-    if scores["technical"] > 70:
-        recommendations.extend(["Software Engineer", "Data Scientist", "AI Engineer"])
-    if scores["creative"] > 70:
-        recommendations.extend(["UX Designer", "Marketing Manager", "Content Creator"])
-    if scores["analytical"] > 70:
-        recommendations.extend(["Business Analyst", "Financial Analyst", "Research Scientist"])
-    if scores["social"] > 70:
-        recommendations.extend(["Sales Manager", "HR Specialist", "Community Manager"])
-    if scores["leadership"] > 70:
-        recommendations.extend(["Project Manager", "Team Lead", "Entrepreneur"])
-    
-    return list(set(recommendations))[:5]  # Return top 5 unique recommendations
+

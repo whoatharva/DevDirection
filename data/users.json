@@ -338,5 +338,15 @@
     "career_goals": [],
     "time_commitment": "part-time",
     "learning_style": "mixed"
+  },
+  {
+    "user_id": "user_1777493028265",
+    "name": "Quiz User",
+    "education": "Not specified",
+    "skills": [],
+    "interests": [],
+    "career_goals": [],
+    "time_commitment": "part-time",
+    "learning_style": "mixed"
   }
 ]
